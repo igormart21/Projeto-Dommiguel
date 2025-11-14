@@ -20,3 +20,12 @@ node_modules/
 dist/
 build/
 
+# Temporary files
+extract_products.py
+parse_products.py
+pdf_content.txt
+
+# Environment
+.env
+.env.local
+
