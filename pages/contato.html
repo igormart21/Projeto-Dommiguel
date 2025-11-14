@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contato - Dom Miguel Atacadista. Entre em contato conosco para solicitar cotações e informações.">
+    <title>Contato - Dom Miguel Atacadista</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#0B2A3D',
+                        'primary-dark': '#081A26',
+                        'accent': '#C5A25A',
+                        'accent-dark': '#A68B4A',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="font-sans antialiased bg-gray-50">
+    
+    <div id="header-placeholder"></div>
+    
+    <section class="pt-24 pb-8 bg-white">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="breadcrumb">
+                <a href="../index.html">Home</a>
+                <span>/</span>
+                <span>Contato</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Page Header -->
+    <section class="py-12 bg-gradient-to-r from-primary to-primary-dark text-white">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="max-w-3xl" data-aos="fade-up">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Entre em Contato</h1>
+                <p class="text-xl text-white/90">
+                    Estamos prontos para atender você. Solicite uma cotação ou tire suas dúvidas.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Contact Form -->
+                <div data-aos="fade-right">
+                    <div class="bg-white rounded-xl shadow-lg p-8">
+                        <h2 class="text-2xl font-bold text-primary mb-6">Envie sua Mensagem</h2>
+                        <form id="contact-form" class="space-y-6">
+                            <div>
+                                <label for="nome" class="block text-gray-700 font-medium mb-2">Nome Completo</label>
+                                <input type="text" id="nome" name="nome" required 
+                                       class="form-input">
+                            </div>
+                            
+                            <div>
+                                <label for="email" class="block text-gray-700 font-medium mb-2">E-mail</label>
+                                <input type="email" id="email" name="email" required 
+                                       class="form-input">
+                            </div>
+                            
+                            <div>
+                                <label for="telefone" class="block text-gray-700 font-medium mb-2">Telefone</label>
+                                <input type="tel" id="telefone" name="telefone" required 
+                                       class="form-input">
+                            </div>
+                            
+                            <div>
+                                <label for="assunto" class="block text-gray-700 font-medium mb-2">Assunto</label>
+                                <select id="assunto" name="assunto" required class="form-input">
+                                    <option value="">Selecione um assunto</option>
+                                    <option value="cotacao">Solicitar Cotação</option>
+                                    <option value="duvida">Dúvida sobre Produtos</option>
+                                    <option value="parceria">Parceria Comercial</option>
+                                    <option value="outro">Outro</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label for="mensagem" class="block text-gray-700 font-medium mb-2">Mensagem</label>
+                                <textarea id="mensagem" name="mensagem" rows="5" required 
+                                          class="form-textarea"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn-primary w-full text-lg py-4">
+                                <i class="fas fa-paper-plane mr-2"></i>
+                                Enviar Mensagem
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Contact Info & Map -->
+                <div class="space-y-8" data-aos="fade-left">
+                    <!-- Company Info -->
+                    <div class="bg-white rounded-xl shadow-lg p-8">
+                        <h2 class="text-2xl font-bold text-primary mb-6">Informações</h2>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fas fa-building text-primary text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-800 mb-1">Dom Miguel Atacadista</h3>
+                                    <p class="text-gray-600 text-sm">CNPJ: 40.613.582/0001-04</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fas fa-map-marker-alt text-primary text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-800 mb-1">Endereço</h3>
+                                    <p class="text-gray-600 text-sm">Rua das Hortênsias, 9</p>
+                                    <p class="text-gray-600 text-sm">Bairro Village I Sede</p>
+                                    <p class="text-gray-600 text-sm">CEP: 45.810-000</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fas fa-clock text-primary text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-800 mb-1">Horário de Atendimento</h3>
+                                    <p class="text-gray-600 text-sm">Segunda a Sexta: 8h às 18h</p>
+                                    <p class="text-gray-600 text-sm">Sábado: 8h às 12h</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Map -->
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3859.5!2d-42.5!3d-14.5!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTTCsDMwJzAwLjAiUyA0MsKwMzAnMDAuMCJX!5e0!3m2!1spt-BR!2sbr!4v1234567890"
+                            width="100%" 
+                            height="300" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade"
+                            class="w-full h-64">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Carvão & Utilidades - Dom Miguel Atacadista. Carvão vegetal de alta qualidade.">
+    <title>Carvão & Utilidades - Dom Miguel Atacadista</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#0B2A3D',
+                        'primary-dark': '#081A26',
+                        'accent': '#C5A25A',
+                        'accent-dark': '#A68B4A',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="font-sans antialiased bg-gray-50">
+    
+    <div id="header-placeholder"></div>
+    
+    <section class="pt-24 pb-8 bg-white">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="breadcrumb">
+                <a href="../index.html">Home</a>
+                <span>/</span>
+                <a href="produtos.html">Produtos</a>
+                <span>/</span>
+                <span>Carvão & Utilidades</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 bg-gradient-to-r from-primary to-primary-dark text-white">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="max-w-3xl" data-aos="fade-up">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Carvão & Utilidades</h1>
+                <p class="text-xl text-white/90">
+                    Produtos essenciais para churrasco e utilidades diversas
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" id="products-grid">
+                <!-- Products will be rendered by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/products.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const products = getProductsByCategory('carvao');
+            const grid = document.getElementById('products-grid');
+            
+            products.forEach((product, index) => {
+                const card = document.createElement('div');
+                card.className = 'product-card premium-card';
+                card.setAttribute('data-aos', 'fade-up');
+                card.setAttribute('data-aos-delay', index * 100);
+                
+                card.innerHTML = `
+                    <div class="product-image">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-weight">${product.weight}</p>
+                        <p class="product-code">Código: ${product.code}</p>
+                        <p class="product-description">${product.description}</p>
+                        <a href="produto.html?id=${product.id}" class="btn-outline mt-auto text-center">
+                            Ver Detalhes
+                        </a>
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        });
+    </script>
+</body>
+</html>
+

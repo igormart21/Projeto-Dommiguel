@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Produtos - Dom Miguel Atacadista. Explore todas as categorias de produtos.">
+    <title>Produtos - Dom Miguel Atacadista</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#0B2A3D',
+                        'primary-dark': '#081A26',
+                        'accent': '#C5A25A',
+                        'accent-dark': '#A68B4A',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="font-sans antialiased bg-gray-50">
+    
+    <div id="header-placeholder"></div>
+    
+    <section class="pt-24 pb-8 bg-white">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="breadcrumb">
+                <a href="../index.html">Home</a>
+                <span>/</span>
+                <span>Produtos</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 bg-gradient-to-r from-primary to-primary-dark text-white">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="max-w-3xl" data-aos="fade-up">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Nossos Produtos</h1>
+                <p class="text-xl text-white/90">
+                    Explore nosso portfólio completo organizado por categorias
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8" id="categories-grid">
+                <!-- Categories will be rendered by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/products.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const categoriesGrid = document.getElementById('categories-grid');
+            if (categoriesGrid) {
+                const categories = ['conservas', 'temperos', 'graos', 'carvao'];
+                categories.forEach((category, index) => {
+                    renderCategoryCard(category, categoriesGrid);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+

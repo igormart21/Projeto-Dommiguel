@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Detalhes do produto - Dom Miguel Atacadista">
+    <title>Detalhes do Produto - Dom Miguel Atacadista</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#0B2A3D',
+                        'primary-dark': '#081A26',
+                        'accent': '#C5A25A',
+                        'accent-dark': '#A68B4A',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="font-sans antialiased bg-gray-50">
+    
+    <div id="header-placeholder"></div>
+    
+    <!-- Breadcrumb -->
+    <section class="pt-24 pb-8 bg-white">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="breadcrumb" id="breadcrumb">
+                <a href="../index.html">Home</a>
+                <span>/</span>
+                <a href="produtos.html">Produtos</a>
+                <span>/</span>
+                <span id="breadcrumb-category">Produto</span>
+                <span>/</span>
+                <span id="breadcrumb-product">Detalhes</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Banner -->
+    <section class="py-12 bg-gradient-to-r from-primary to-primary-dark text-white">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="max-w-4xl" data-aos="fade-up">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4" id="product-title">Carregando...</h1>
+                <p class="text-xl text-white/90" id="product-subtitle"></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Details -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Product Image -->
+                <div data-aos="fade-right">
+                    <div class="product-image rounded-xl overflow-hidden shadow-lg" style="height: 500px;">
+                        <i class="fas fa-box" style="font-size: 8rem; color: var(--primary); opacity: 0.2;"></i>
+                    </div>
+                </div>
+                
+                <!-- Product Info -->
+                <div data-aos="fade-left">
+                    <div class="bg-gray-light rounded-xl p-8 mb-8">
+                        <h2 class="text-2xl font-bold text-primary mb-6">Ficha Técnica</h2>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center py-3 border-b border-gray-300">
+                                <span class="font-semibold text-gray-700">Nome:</span>
+                                <span class="text-gray-800" id="product-name">-</span>
+                            </div>
+                            <div class="flex justify-between items-center py-3 border-b border-gray-300">
+                                <span class="font-semibold text-gray-700">Peso:</span>
+                                <span class="text-gray-800" id="product-weight">-</span>
+                            </div>
+                            <div class="flex justify-between items-center py-3 border-b border-gray-300">
+                                <span class="font-semibold text-gray-700">Categoria:</span>
+                                <span class="text-gray-800" id="product-category">-</span>
+                            </div>
+                            <div class="flex justify-between items-center py-3">
+                                <span class="font-semibold text-gray-700">Código:</span>
+                                <span class="text-accent font-bold" id="product-code">-</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold text-primary mb-4">Descrição</h3>
+                        <p class="text-gray-700 leading-relaxed" id="product-description">-</p>
+                    </div>
+                    
+                    <a href="contato.html" class="btn-accent text-lg px-8 py-4 inline-block text-center w-full lg:w-auto">
+                        <i class="fas fa-envelope mr-2"></i>
+                        Solicitar Cotação
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Similar Products -->
+    <section class="py-16 bg-gray-light">
+        <div class="container mx-auto px-4 lg:px-8">
+            <h2 class="text-3xl font-bold text-primary mb-8 text-center" data-aos="fade-up">Produtos Similares</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8" id="similar-products">
+                <!-- Similar products will be rendered by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/products.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get product ID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id') || 'cons-20242'; // Default product
+            
+            const product = getProductById(productId);
+            
+            if (product) {
+                // Update page content
+                document.getElementById('product-title').textContent = product.name;
+                document.getElementById('product-subtitle').textContent = product.description;
+                document.getElementById('product-name').textContent = product.name;
+                document.getElementById('product-weight').textContent = product.weight;
+                document.getElementById('product-category').textContent = product.category;
+                document.getElementById('product-code').textContent = product.code;
+                document.getElementById('product-description').textContent = product.description;
+                
+                // Update breadcrumb
+                const categoryMap = {
+                    'Conservas': 'conservas',
+                    'Temperos': 'temperos',
+                    'Grãos & Farinhas': 'graos',
+                    'Carvão & Utilidades': 'carvao'
+                };
+                const categorySlug = categoryMap[product.category] || 'produtos';
+                document.getElementById('breadcrumb-category').innerHTML = `<a href="${categorySlug}.html">${product.category}</a>`;
+                document.getElementById('breadcrumb-product').textContent = product.name;
+                
+                // Update page title
+                document.title = `${product.name} - Dom Miguel Atacadista`;
+                
+                // Render similar products
+                const similarProducts = getSimilarProducts(productId, 4);
+                const similarGrid = document.getElementById('similar-products');
+                
+                similarProducts.forEach((similar, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'product-card premium-card';
+                    card.setAttribute('data-aos', 'fade-up');
+                    card.setAttribute('data-aos-delay', index * 100);
+                    
+                    card.innerHTML = `
+                        <div class="product-image">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">${similar.name}</h3>
+                            <p class="product-weight">${similar.weight}</p>
+                            <p class="product-code">Código: ${similar.code}</p>
+                            <a href="produto.html?id=${similar.id}" class="btn-outline mt-auto text-center">
+                                Ver Detalhes
+                            </a>
+                        </div>
+                    `;
+                    
+                    similarGrid.appendChild(card);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+
