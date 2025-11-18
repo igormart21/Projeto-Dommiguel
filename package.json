@@ -1,0 +1,22 @@
+{
+  "name": "dom-miguel-atacadista",
+  "version": "1.0.0",
+  "description": "Site institucional premium para Dom Miguel Atacadista",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server -p 8000 -o",
+    "serve": "npx http-server -p 8000",
+    "dev": "npx http-server -p 8000 -o"
+  },
+  "keywords": [
+    "atacado",
+    "distribuição",
+    "alimentos",
+    "site-institucional"
+  ],
+  "author": "Dom Miguel Atacadista",
+  "license": "UNLICENSED",
+  "devDependencies": {},
+  "dependencies": {}
+}
+

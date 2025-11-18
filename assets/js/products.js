@@ -7,7 +7,8 @@ const productsCatalog = {
             weight: '1kg',
             code: '20242',
             description: 'Ovos de codorna selecionados em conserva, embalagem de 1kg.',
-            category: 'Conservas'
+            category: 'Conservas',
+            image: '' // Exemplo: 'assets/img/products/ovos-codorna-1kg.jpg'
         },
         {
             id: 'cons-20243',
@@ -15,7 +16,8 @@ const productsCatalog = {
             weight: '2,1kg',
             code: '20243',
             description: 'Ovos de codorna selecionados em conserva, embalagem de 2,1kg.',
-            category: 'Conservas'
+            category: 'Conservas',
+            image: ''
         },
         {
             id: 'cons-20246',
@@ -23,7 +25,8 @@ const productsCatalog = {
             weight: '3,2kg',
             code: '20246',
             description: 'Azeitona verde em conserva, embalagem de 3,2kg.',
-            category: 'Conservas'
+            category: 'Conservas',
+            image: ''
         },
         {
             id: 'cons-20247',
@@ -31,7 +34,8 @@ const productsCatalog = {
             weight: '2,9kg',
             code: '20247',
             description: 'Azeitona verde em conserva, embalagem de 2,9kg.',
-            category: 'Conservas'
+            category: 'Conservas',
+            image: ''
         },
         {
             id: 'cons-20248',
@@ -39,7 +43,8 @@ const productsCatalog = {
             weight: '11kg',
             code: '20248',
             description: 'Azeitona preta com caroço, embalagem de 11kg.',
-            category: 'Conservas'
+            category: 'Conservas',
+            image: ''
         },
         {
             id: 'cons-20249',
@@ -47,7 +52,8 @@ const productsCatalog = {
             weight: 'Cx com 6 und',
             code: '20249',
             description: 'Palmito tolete em conserva, caixa com 6 unidades.',
-            category: 'Conservas'
+            category: 'Conservas',
+            image: ''
         },
         {
             id: 'cons-20250',
@@ -55,7 +61,8 @@ const productsCatalog = {
             weight: 'Caixa c/ 6 und',
             code: '20250',
             description: 'Palmito picado em conserva, caixa com 6 unidades.',
-            category: 'Conservas'
+            category: 'Conservas',
+            image: ''
         }
     ],
     temperos: [
@@ -65,7 +72,8 @@ const productsCatalog = {
             weight: '500g',
             code: '20244',
             description: 'Alho desidratado em flocos, embalagem de 500g.',
-            category: 'Temperos'
+            category: 'Temperos',
+            image: ''
         },
         {
             id: 'temp-20245',
@@ -73,7 +81,8 @@ const productsCatalog = {
             weight: '1kg',
             code: '20245',
             description: 'Alho descascado 100% natural, embalagem de 1kg.',
-            category: 'Temperos'
+            category: 'Temperos',
+            image: ''
         }
     ],
     graos: [
@@ -83,7 +92,8 @@ const productsCatalog = {
             weight: '25kg',
             code: '20251',
             description: 'Farinha de trigo tipo 1, embalagem de 25kg.',
-            category: 'Grãos & Farinhas'
+            category: 'Grãos & Farinhas',
+            image: ''
         }
     ],
     carvao: [
@@ -93,9 +103,17 @@ const productsCatalog = {
             weight: '2kg',
             code: '20241',
             description: 'Carvão vegetal de alta qualidade, embalagem de 2kg.',
-            category: 'Carvão & Utilidades'
+            category: 'Carvão & Utilidades',
+            image: ''
         }
-    ]
+    ],
+    // Novas categorias - adicionar produtos aqui
+    arroz: [],
+    acucar: [],
+    frango: [],
+    cafe: [],
+    feijao: [],
+    oleo: []
 };
 
 // Get all products
@@ -104,17 +122,29 @@ function getAllProducts() {
         ...productsCatalog.conservas,
         ...productsCatalog.temperos,
         ...productsCatalog.graos,
-        ...productsCatalog.carvao
+        ...productsCatalog.carvao,
+        ...productsCatalog.arroz,
+        ...productsCatalog.acucar,
+        ...productsCatalog.frango,
+        ...productsCatalog.cafe,
+        ...productsCatalog.feijao,
+        ...productsCatalog.oleo
     ];
 }
 
 // Get products by category
 function getProductsByCategory(category) {
     const categoryMap = {
-        'conservas': productsCatalog.conservas,
-        'temperos': productsCatalog.temperos,
-        'graos': productsCatalog.graos,
-        'carvao': productsCatalog.carvao
+        'conservas': productsCatalog.conservas || [],
+        'temperos': productsCatalog.temperos || [],
+        'graos': productsCatalog.graos || [],
+        'carvao': productsCatalog.carvao || [],
+        'arroz': productsCatalog.arroz || [],
+        'acucar': productsCatalog.acucar || [],
+        'frango': productsCatalog.frango || [],
+        'cafe': productsCatalog.cafe || [],
+        'feijao': productsCatalog.feijao || [],
+        'oleo': productsCatalog.oleo || []
     };
     return categoryMap[category] || [];
 }

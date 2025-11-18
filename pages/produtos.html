@@ -67,12 +67,12 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="../assets/js/components.js"></script>
     <script src="../assets/js/products.js"></script>
-    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/main.js?v=2.4"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const categoriesGrid = document.getElementById('categories-grid');
             if (categoriesGrid) {
-                const categories = ['conservas', 'temperos', 'graos', 'carvao'];
+                const categories = ['arroz', 'acucar', 'frango', 'cafe', 'feijao', 'oleo'];
                 categories.forEach((category, index) => {
                     renderCategoryCard(category, categoriesGrid);
                 });

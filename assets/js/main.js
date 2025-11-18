@@ -19,6 +19,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initialize smooth scroll
     initSmoothScroll();
+    
+    // Initialize WhatsApp button
+    initWhatsAppButton();
+    
+    // Initialize hero slider
+    initHeroSlider();
 });
 
 // Phone Mask
@@ -116,9 +122,14 @@ function renderProductCard(product, container) {
     card.className = 'product-card premium-card';
     card.setAttribute('data-aos', 'fade-up');
     
+    // Verificar se tem imagem ou usar ícone padrão
+    const imageHTML = product.image && product.image.trim() !== ''
+        ? `<img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover">`
+        : `<i class="fas fa-box"></i>`;
+    
     card.innerHTML = `
         <div class="product-image">
-            <i class="fas fa-box"></i>
+            ${imageHTML}
         </div>
         <div class="product-info">
             <h3 class="product-name">${product.name}</h3>
@@ -141,28 +152,226 @@ function renderCategoryCard(category, container) {
     card.setAttribute('data-aos', 'fade-up');
     
     const icons = {
-        'conservas': 'fa-box',
-        'temperos': 'fa-pepper-hot',
-        'graos': 'fa-wheat-awn',
-        'carvao': 'fa-fire'
+        'arroz': 'fa-seedling',
+        'acucar': 'fa-cube',
+        'frango': 'fa-drumstick',
+        'cafe': 'fa-coffee',
+        'feijao': 'fa-seedling',
+        'oleo': 'fa-flask'
     };
     
     const names = {
-        'conservas': 'Conservas',
-        'temperos': 'Temperos',
-        'graos': 'Grãos & Farinhas',
-        'carvao': 'Carvão & Utilidades'
+        'arroz': 'Arroz',
+        'acucar': 'Açúcar',
+        'frango': 'Frango',
+        'cafe': 'Café',
+        'feijao': 'Feijão',
+        'oleo': 'Óleo'
     };
     
-    card.innerHTML = `
-        <div class="category-icon">
+    const subcategories = {
+        'arroz': [
+            'Tipo 1 longo e fino',
+            'Parabolizado',
+            'Integral'
+        ],
+        'acucar': [
+            'Icumsa',
+            'Icumsa 150',
+            'VHP Icumsa 600-1200'
+        ],
+        'frango': [
+            'Pé',
+            'Meio da asa',
+            'Observação: Demais cortes sob consulta.'
+        ],
+        'cafe': [
+            'Verde cru em grãos',
+            'Tipos',
+            'Arábica',
+            'Conilon'
+        ],
+        'feijao': [
+            'Marrom',
+            'Preto'
+        ],
+        'oleo': [
+            'Soja',
+            'Girassol'
+        ]
+    };
+    
+    const categoryImages = {
+        'arroz': 'assets/img/milled-rice-black-bowl-black-cement-floor.jpg',
+        'acucar': 'assets/img/granulated-sugar-refined-sugar-wooden-dishes-groceries_420001-15036.jpg',
+        'frango': 'assets/img/raw-chicken-meat.jpg',
+        'cafe': 'assets/img/close-up-view-dark-fresh-roasted-coffee-beans-coffee-beans-background.jpg',
+        'feijao': 'assets/img/uncooked-red-beans-wooden-bowl.jpg',
+        'oleo': 'assets/img/soybean-oil-soybean-food-beverage-products-food-nutrition-concept.jpg'
+    };
+    
+    const categorySubcategories = subcategories[category] || [];
+    let subcategoriesHTML = '';
+    
+    if (categorySubcategories.length > 0) {
+        subcategoriesHTML = `<div class="category-subcategories mt-4 mb-4">
+            ${categorySubcategories.map(sub => `<div class="text-sm text-gray-600 mb-1">- ${sub}</div>`).join('')}
+        </div>`;
+    }
+    
+    const categoryImage = categoryImages[category] || '';
+    const imageHTML = categoryImage 
+        ? `<div class="category-image mb-4">
+            <img src="${categoryImage}" alt="${names[category] || category}" class="w-full h-48 object-cover rounded-lg">
+           </div>`
+        : `<div class="category-icon">
             <i class="fas ${icons[category] || 'fa-box'}"></i>
-        </div>
+        </div>`;
+    
+    card.innerHTML = `
+        ${imageHTML}
         <h3 class="text-2xl font-bold text-primary mb-4">${names[category] || category}</h3>
+        ${subcategoriesHTML}
         <a href="pages/${category}.html" class="btn-primary">
             Ver Produtos
         </a>
     `;
     
     container.appendChild(card);
+}
+
+// WhatsApp Floating Button
+function initWhatsAppButton() {
+    // Número do WhatsApp: 11 99488-1827
+    // Formato para WhatsApp API: 55 (país) + 11 (DDD) + 994881827 (número sem hífen)
+    const whatsappNumber = '5511994881827'; // NÚMERO ATUALIZADO: 11 99488-1827
+    const defaultMessage = encodeURIComponent('Olá! Gostaria de saber mais sobre os produtos da Dom Miguel Atacadista.');
+    
+    // Remover TODOS os botões antigos (para garantir atualização)
+    const existingButtons = document.querySelectorAll('.whatsapp-float');
+    existingButtons.forEach(btn => btn.remove());
+    
+    // Criar o botão com o número correto
+    const whatsappButton = document.createElement('a');
+    whatsappButton.href = `https://wa.me/${whatsappNumber}?text=${defaultMessage}`;
+    whatsappButton.target = '_blank';
+    whatsappButton.rel = 'noopener noreferrer';
+    whatsappButton.className = 'whatsapp-float';
+    whatsappButton.setAttribute('aria-label', 'Fale conosco no WhatsApp - 11 99488-1827');
+    whatsappButton.innerHTML = '<i class="fab fa-whatsapp"></i>';
+    
+    // Adicionar data attribute para verificação
+    whatsappButton.setAttribute('data-whatsapp-number', whatsappNumber);
+    
+    document.body.appendChild(whatsappButton);
+    
+    // Debug: verificar se o número está correto
+    console.log('WhatsApp Button criado com número:', whatsappNumber);
+}
+
+// Hero Slider
+function initHeroSlider() {
+    const slides = document.querySelectorAll('.hero-slide');
+    const dots = document.querySelectorAll('.slider-dot');
+    const prevBtn = document.querySelector('.slider-arrow-prev');
+    const nextBtn = document.querySelector('.slider-arrow-next');
+    
+    if (slides.length === 0) return;
+    
+    let currentSlide = 0;
+    let autoplayInterval;
+    const autoplayDelay = 8000; // 8 segundos
+    
+    // Função para mostrar slide específico
+    function showSlide(index) {
+        // Remove active de todos os slides e dots
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+        
+        // Adiciona active no slide e dot atual
+        if (slides[index]) {
+            slides[index].classList.add('active');
+        }
+        if (dots[index]) {
+            dots[index].classList.add('active');
+        }
+        
+        currentSlide = index;
+        
+        // Reinicia animações AOS no slide ativo
+        if (typeof AOS !== 'undefined') {
+            AOS.refresh();
+        }
+    }
+    
+    // Função para próximo slide
+    function nextSlide() {
+        const next = (currentSlide + 1) % slides.length;
+        showSlide(next);
+    }
+    
+    // Função para slide anterior
+    function prevSlide() {
+        const prev = (currentSlide - 1 + slides.length) % slides.length;
+        showSlide(prev);
+    }
+    
+    // Event listeners para dots
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            showSlide(index);
+            resetAutoplay();
+        });
+    });
+    
+    // Event listeners para setas
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            nextSlide();
+            resetAutoplay();
+        });
+    }
+    
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            prevSlide();
+            resetAutoplay();
+        });
+    }
+    
+    // Autoplay
+    function startAutoplay() {
+        autoplayInterval = setInterval(nextSlide, autoplayDelay);
+    }
+    
+    function resetAutoplay() {
+        clearInterval(autoplayInterval);
+        startAutoplay();
+    }
+    
+    // Pausar autoplay ao passar o mouse
+    const slider = document.querySelector('.hero-slider');
+    if (slider) {
+        slider.addEventListener('mouseenter', () => {
+            clearInterval(autoplayInterval);
+        });
+        
+        slider.addEventListener('mouseleave', () => {
+            startAutoplay();
+        });
+    }
+    
+    // Iniciar autoplay
+    startAutoplay();
+    
+    // Navegação por teclado
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+            prevSlide();
+            resetAutoplay();
+        } else if (e.key === 'ArrowRight') {
+            nextSlide();
+            resetAutoplay();
+        }
+    });
 }

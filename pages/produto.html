@@ -64,8 +64,8 @@
             <div class="grid lg:grid-cols-2 gap-12">
                 <!-- Product Image -->
                 <div data-aos="fade-right">
-                    <div class="product-image rounded-xl overflow-hidden shadow-lg" style="height: 500px;">
-                        <i class="fas fa-box" style="font-size: 8rem; color: var(--primary); opacity: 0.2;"></i>
+                    <div class="product-image rounded-xl overflow-hidden shadow-lg" style="height: 500px; background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%); display: flex; align-items: center; justify-content: center;" id="product-image-container">
+                        <i class="fas fa-box" style="font-size: 8rem; color: var(--primary); opacity: 0.2;" id="product-image-icon"></i>
                     </div>
                 </div>
                 
@@ -122,7 +122,7 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="../assets/js/components.js"></script>
     <script src="../assets/js/products.js"></script>
-    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/main.js?v=2.0"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Get product ID from URL
@@ -141,12 +141,27 @@
                 document.getElementById('product-code').textContent = product.code;
                 document.getElementById('product-description').textContent = product.description;
                 
+                // Update product image
+                const imageContainer = document.getElementById('product-image-container');
+                const imageIcon = document.getElementById('product-image-icon');
+                if (product.image && product.image.trim() !== '') {
+                    imageContainer.innerHTML = `<img src="../${product.image}" alt="${product.name}" class="w-full h-full object-cover">`;
+                } else if (imageIcon) {
+                    imageIcon.style.display = 'block';
+                }
+                
                 // Update breadcrumb
                 const categoryMap = {
                     'Conservas': 'conservas',
                     'Temperos': 'temperos',
                     'Grãos & Farinhas': 'graos',
-                    'Carvão & Utilidades': 'carvao'
+                    'Carvão & Utilidades': 'carvao',
+                    'Arroz': 'arroz',
+                    'Açúcar': 'acucar',
+                    'Frango': 'frango',
+                    'Café': 'cafe',
+                    'Feijão': 'feijao',
+                    'Óleo': 'oleo'
                 };
                 const categorySlug = categoryMap[product.category] || 'produtos';
                 document.getElementById('breadcrumb-category').innerHTML = `<a href="${categorySlug}.html">${product.category}</a>`;
@@ -165,9 +180,14 @@
                     card.setAttribute('data-aos', 'fade-up');
                     card.setAttribute('data-aos-delay', index * 100);
                     
+                    // Verificar se tem imagem ou usar ícone padrão
+                    const similarImageHTML = similar.image && similar.image.trim() !== ''
+                        ? `<img src="../${similar.image}" alt="${similar.name}" class="w-full h-full object-cover">`
+                        : `<i class="fas fa-box"></i>`;
+                    
                     card.innerHTML = `
                         <div class="product-image">
-                            <i class="fas fa-box"></i>
+                            ${similarImageHTML}
                         </div>
                         <div class="product-info">
                             <h3 class="product-name">${similar.name}</h3>

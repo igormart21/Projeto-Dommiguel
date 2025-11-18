@@ -104,12 +104,27 @@ header.scrolled {
 .category-card {
     background: white;
     border-radius: 12px;
-    padding: 3rem 2rem;
+    padding: 3rem 2rem 2rem 2rem;
     text-align: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 420px;
+}
+
+/* Garantir que o grid de categorias tenha altura igual */
+#categories-grid {
+    align-items: stretch !important;
+}
+
+#categories-grid > .category-card {
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
 }
 
 .category-card::before {
@@ -150,6 +165,55 @@ header.scrolled {
 .category-card:hover .category-icon {
     transform: rotate(5deg) scale(1.1);
     background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+}
+
+/* Category Image */
+.category-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.category-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.category-card:hover .category-image img {
+    transform: scale(1.05);
+}
+
+/* Category Subcategories */
+.category-subcategories {
+    text-align: left !important;
+    padding: 0 1rem !important;
+    margin-top: 1rem !important;
+    margin-bottom: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 1 auto;
+    min-height: 150px;
+    justify-content: flex-start;
+}
+
+.category-subcategories div {
+    font-size: 0.9rem !important;
+    color: #666 !important;
+    margin-bottom: 0.5rem !important;
+    line-height: 1.5 !important;
+    display: block !important;
+}
+
+/* Botão dentro do category-card */
+.category-card .btn-primary {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0 !important;
+    align-self: center;
+    flex-shrink: 0;
 }
 
 /* Product Card */
@@ -314,6 +378,155 @@ header.scrolled {
     opacity: 0.3;
 }
 
+/* Hero Slider */
+.hero-slider {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.hero-slides {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+.hero-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    z-index: 1;
+}
+
+.hero-slide.active {
+    opacity: 1;
+    z-index: 2;
+}
+
+.hero-slide img:not(.hero-slide-soja) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Imagem da soja - sem container branco */
+.hero-slide .hero-slide-soja {
+    position: absolute !important;
+    right: 15% !important;
+    left: auto !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 650px !important;
+    height: 650px !important;
+    max-width: 650px !important;
+    max-height: 650px !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    z-index: 1 !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-slide .hero-slide-soja {
+        width: 380px !important;
+        height: 380px !important;
+        max-width: 380px !important;
+        max-height: 380px !important;
+        right: 10% !important;
+        left: auto !important;
+    }
+}
+
+.hero-slide-title {
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    letter-spacing: 2px;
+}
+
+/* Slider Navigation Dots */
+.slider-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.slider-dot:hover {
+    background: rgba(255, 255, 255, 0.8);
+    transform: scale(1.2);
+}
+
+.slider-dot.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    width: 32px;
+    border-radius: 6px;
+}
+
+/* Slider Arrows */
+.slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 30;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.slider-arrow:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: var(--accent);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.slider-arrow-prev {
+    left: 20px;
+}
+
+.slider-arrow-next {
+    right: 20px;
+}
+
+/* Responsive Slider */
+@media (max-width: 768px) {
+    .slider-arrow {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+    
+    .slider-arrow-prev {
+        left: 10px;
+    }
+    
+    .slider-arrow-next {
+        right: 10px;
+    }
+    
+    .hero-slide-title {
+        font-size: 3rem !important;
+    }
+}
+
 /* Wave Separator */
 .wave-separator {
     position: relative;
@@ -446,4 +659,112 @@ header.scrolled {
 
 .fade-in-up {
     animation: fadeInUp 0.6s ease-out;
+}
+
+/* WhatsApp Floating Button */
+.whatsapp-float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+    z-index: 1000;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: pulse-whatsapp 2s infinite;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
+}
+
+.whatsapp-float i {
+    font-size: 32px;
+    color: white;
+    transition: transform 0.3s ease;
+}
+
+.whatsapp-float:hover i {
+    transform: scale(1.1);
+}
+
+/* Tooltip do WhatsApp */
+.whatsapp-float::before {
+    content: 'Fale conosco no WhatsApp';
+    position: absolute;
+    right: 70px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--primary);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.whatsapp-float::after {
+    content: '';
+    position: absolute;
+    right: 65px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 6px solid transparent;
+    border-left-color: var(--primary);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.whatsapp-float:hover::before,
+.whatsapp-float:hover::after {
+    opacity: 1;
+}
+
+/* Animação de pulso */
+@keyframes pulse-whatsapp {
+    0% {
+        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+    }
+    50% {
+        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4), 0 0 0 10px rgba(37, 211, 102, 0.1);
+    }
+    100% {
+        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+    }
+}
+
+/* Responsive WhatsApp Button */
+@media (max-width: 768px) {
+    .whatsapp-float {
+        width: 56px;
+        height: 56px;
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    .whatsapp-float i {
+        font-size: 28px;
+    }
+    
+    .whatsapp-float::before {
+        right: 65px;
+        font-size: 12px;
+        padding: 8px 12px;
+    }
+    
+    .whatsapp-float::after {
+        right: 60px;
+    }
 }

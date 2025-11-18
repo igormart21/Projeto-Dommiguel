@@ -69,7 +69,7 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="../assets/js/components.js"></script>
     <script src="../assets/js/products.js"></script>
-    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/main.js?v=2.0"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const products = getProductsByCategory('graos');
@@ -81,9 +81,14 @@
                 card.setAttribute('data-aos', 'fade-up');
                 card.setAttribute('data-aos-delay', index * 100);
                 
+                // Verificar se tem imagem ou usar ícone padrão
+                const imageHTML = product.image && product.image.trim() !== ''
+                    ? `<img src="../${product.image}" alt="${product.name}" class="w-full h-full object-cover">`
+                    : `<i class="fas fa-wheat-awn"></i>`;
+                
                 card.innerHTML = `
                     <div class="product-image">
-                        <i class="fas fa-wheat-awn"></i>
+                        ${imageHTML}
                     </div>
                     <div class="product-info">
                         <h3 class="product-name">${product.name}</h3>

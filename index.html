@@ -36,39 +36,81 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css?v=2.0">
 </head>
 <body class="font-sans antialiased bg-gray-50">
     
     <!-- Header Placeholder -->
     <div id="header-placeholder"></div>
     
-    <!-- Hero Section -->
-    <section class="hero-gradient min-h-screen flex items-center justify-center pt-20 relative overflow-hidden">
-        <!-- Background Image -->
-        <div class="absolute inset-0 z-0">
-            <img src="assets/img/hero-background.webp" 
-                 alt="Background Dom Miguel" 
-                 class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-br from-primary/75 via-primary/70 to-primary-dark/75"></div>
-        </div>
-        
-        <div class="container mx-auto px-4 lg:px-8 text-center relative z-10">
-            <div class="max-w-5xl mx-auto">
-                <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6" data-aos="fade-up">
-                    Excelência em distribuição<br>para todo o Brasil
-                </h1>
-                <p class="text-xl md:text-2xl lg:text-3xl text-white/90 mb-10 max-w-3xl mx-auto leading-relaxed" data-aos="fade-up" data-aos-delay="200">
-                    Portfólio completo de produtos alimentícios e embalagens no atacado.
-                </p>
-                <a href="#categorias" class="btn-accent text-lg px-8 py-4 inline-block" data-aos="fade-up" data-aos-delay="400">
-                    Ver Categorias <i class="fas fa-arrow-down ml-2"></i>
-                </a>
+    <!-- Hero Slider Section -->
+    <section class="hero-slider min-h-screen relative overflow-hidden">
+        <!-- Slider Container -->
+        <div class="hero-slides">
+            <!-- Slide 1 - Café -->
+            <div class="hero-slide active">
+                <div class="absolute inset-0 z-0">
+                    <img src="assets/img/f476d4b2-5c51-473b-9fff-9bf602e7baaa.png" 
+                         alt="Café Premium" 
+                         class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-transparent"></div>
+                </div>
+                <div class="container mx-auto px-4 lg:px-8 relative z-10 min-h-screen flex items-center pt-20">
+                    <div class="max-w-2xl">
+                        <h1 class="text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 hero-slide-title" data-aos="fade-right">
+                            CAFÉ
+                        </h1>
+                        <p class="text-xl md:text-2xl lg:text-3xl text-white/95 mb-10 leading-relaxed font-medium" data-aos="fade-right" data-aos-delay="200">
+                            Cafés selecionados de qualidade superior para distribuição nacional e internacional
+                        </p>
+                        <a href="#categorias" class="btn-accent text-lg px-8 py-4 inline-block" data-aos="fade-right" data-aos-delay="400">
+                            Ver Categorias <i class="fas fa-arrow-down ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 2 - Soja -->
+            <div class="hero-slide">
+                <div class="absolute inset-0 z-0 bg-white">
+                    <img src="assets/img/png-clipart-soy-and-glass-jar-soybean-oil-carrier-oil-cooking-oils-oil-miscellaneous-food-Photoroom.png" 
+                         alt="Soja e Derivados" 
+                         class="hero-slide-soja"
+                         style="position: absolute !important; right: 15% !important; left: auto !important; top: 50% !important; transform: translateY(-50%) !important; width: 650px !important; height: 650px !important; max-width: 650px !important; max-height: 650px !important; object-fit: contain !important; object-position: center !important; z-index: 1 !important;">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary/85 via-primary/60 to-transparent"></div>
+                </div>
+                <div class="container mx-auto px-4 lg:px-8 relative z-10 min-h-screen flex items-center pt-20">
+                    <div class="max-w-2xl">
+                        <h1 class="text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 hero-slide-title" data-aos="fade-right">
+                            SOJA
+                        </h1>
+                        <p class="text-xl md:text-2xl lg:text-3xl text-white/95 mb-10 leading-relaxed font-medium" data-aos="fade-right" data-aos-delay="200">
+                            Soja certificada fornecida em grãos, farelo, óleo e derivados para todo o mercado
+                        </p>
+                        <a href="#categorias" class="btn-accent text-lg px-8 py-4 inline-block" data-aos="fade-right" data-aos-delay="400">
+                            Ver Categorias <i class="fas fa-arrow-down ml-2"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
         
+        <!-- Slider Navigation Dots -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex space-x-3">
+            <button class="slider-dot active" data-slide="0" aria-label="Slide 1"></button>
+            <button class="slider-dot" data-slide="1" aria-label="Slide 2"></button>
+        </div>
+        
+        <!-- Slider Arrows -->
+        <button class="slider-arrow slider-arrow-prev" aria-label="Slide anterior">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="slider-arrow slider-arrow-next" aria-label="Próximo slide">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        
         <!-- Scroll Indicator -->
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce" data-aos="fade-up" data-aos-delay="600">
+        <div class="absolute bottom-20 left-1/2 transform -translate-x-1/2 animate-bounce z-20">
             <i class="fas fa-chevron-down text-white text-2xl"></i>
         </div>
     </section>
@@ -91,7 +133,7 @@
                 </p>
             </div>
             
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8" id="categories-grid">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="categories-grid">
                 <!-- Categories will be rendered by JavaScript -->
             </div>
         </div>
@@ -197,14 +239,9 @@
                         <!-- Contato -->
                         <div class="bg-white rounded-xl p-6 md:p-8 shadow-lg space-y-4">
                             <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 flex-wrap">
-                                <a href="tel:+551639023987" class="flex items-center text-primary hover:text-accent transition-colors group">
-                                    <i class="fas fa-phone text-accent mr-3 group-hover:scale-110 transition-transform"></i>
-                                    <span class="text-lg font-semibold">+55 (16) 3902-3987</span>
-                                </a>
-                                <span class="text-gray-300 hidden sm:inline">|</span>
-                                <a href="tel:+5516981480101" class="flex items-center text-primary hover:text-accent transition-colors group">
-                                    <i class="fas fa-mobile-alt text-accent mr-3 group-hover:scale-110 transition-transform"></i>
-                                    <span class="text-lg font-semibold">+55 (16) 98148-0101</span>
+                                <a href="tel:+5511994881827" class="flex items-center text-primary hover:text-accent transition-colors group">
+                                    <i class="fab fa-whatsapp text-accent mr-3 group-hover:scale-110 transition-transform text-2xl"></i>
+                                    <span class="text-lg font-semibold">+55 (11) 99488-1827</span>
                                 </a>
                             </div>
                             
@@ -240,13 +277,13 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="assets/js/components.js"></script>
     <script src="assets/js/products.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script src="assets/js/main.js?v=3.0"></script>
     <script>
         // Render categories on homepage
         document.addEventListener('DOMContentLoaded', () => {
             const categoriesGrid = document.getElementById('categories-grid');
             if (categoriesGrid) {
-                const categories = ['conservas', 'temperos', 'graos', 'carvao'];
+                const categories = ['arroz', 'acucar', 'frango', 'cafe', 'feijao', 'oleo'];
                 categories.forEach(category => {
                     renderCategoryCard(category, categoriesGrid);
                 });
