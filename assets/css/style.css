@@ -737,9 +737,11 @@ header.scrolled {
     box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6) !important;
 }
 
-.whatsapp-float i {
+.whatsapp-float i,
+.whatsapp-float svg {
     font-size: 32px;
     color: white;
+    fill: white;
     transition: transform 0.3s ease;
     display: flex;
     align-items: center;
@@ -747,13 +749,19 @@ header.scrolled {
     line-height: 1;
     margin: 0 !important;
     padding: 0;
-    width: 32px;
-    height: 32px;
+    width: 32px !important;
+    height: 32px !important;
     box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.whatsapp-float svg {
+    display: block;
 }
 
 /* Garantir que apenas o ícone seja visível, esconder qualquer texto */
-.whatsapp-float i {
+.whatsapp-float i,
+.whatsapp-float svg {
     text-indent: 0;
     display: block;
 }
@@ -768,7 +776,8 @@ header.scrolled {
     display: none !important;
 }
 
-.whatsapp-float:hover i {
+.whatsapp-float:hover i,
+.whatsapp-float:hover svg {
     transform: scale(1.1);
 }
 
