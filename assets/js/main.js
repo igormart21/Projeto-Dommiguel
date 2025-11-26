@@ -1,7 +1,7 @@
 // Main JavaScript - Premium Features
 
-// Initialize AOS (Animate On Scroll)
-document.addEventListener('DOMContentLoaded', () => {
+// Função para inicializar tudo
+function initializeAll() {
     if (typeof AOS !== 'undefined') {
         AOS.init({
             duration: 800,
@@ -20,12 +20,42 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize smooth scroll
     initSmoothScroll();
     
-    // Initialize WhatsApp button
+    // Initialize WhatsApp button (SEMPRE inicializar)
     initWhatsAppButton();
     
     // Initialize hero slider
     initHeroSlider();
-});
+}
+
+// Initialize AOS (Animate On Scroll)
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeAll);
+} else {
+    // DOM já está carregado, executar imediatamente
+    initializeAll();
+}
+
+// Garantir que o botão WhatsApp seja criado mesmo se a página já estiver carregada
+if (document.readyState === 'complete') {
+    setTimeout(() => {
+        const existingButton = document.querySelector('.whatsapp-float') || document.getElementById('whatsapp-float-button');
+        if (!existingButton) {
+            console.log('🔧 Criando botão WhatsApp (página já carregada)...');
+            initWhatsAppButton();
+        }
+    }, 500);
+}
+
+// Verificação final após 2 segundos para garantir que o botão existe
+setTimeout(() => {
+    const existingButton = document.querySelector('.whatsapp-float') || document.getElementById('whatsapp-float-button');
+    if (!existingButton && typeof initWhatsAppButton === 'function') {
+        console.log('🔧 Criando botão WhatsApp (verificação final)...');
+        initWhatsAppButton();
+    } else if (existingButton) {
+        console.log('✅ Botão WhatsApp confirmado:', existingButton);
+    }
+}, 2000);
 
 // Phone Mask
 function initPhoneMask() {
@@ -151,6 +181,10 @@ function renderCategoryCard(category, container) {
     card.className = 'category-card premium-card';
     card.setAttribute('data-aos', 'fade-up');
     
+    // Detectar se estamos em uma página dentro de /pages/
+    const isInPages = window.location.pathname.includes('/pages/');
+    const basePath = isInPages ? '../' : '';
+    
     const icons = {
         'arroz': 'fa-seedling',
         'acucar': 'fa-cube',
@@ -220,19 +254,24 @@ function renderCategoryCard(category, container) {
     }
     
     const categoryImage = categoryImages[category] || '';
-    const imageHTML = categoryImage 
+    // Ajustar caminho da imagem baseado na localização da página
+    const imagePath = categoryImage ? `${basePath}${categoryImage}` : '';
+    const imageHTML = imagePath 
         ? `<div class="category-image mb-4">
-            <img src="${categoryImage}" alt="${names[category] || category}" class="w-full h-48 object-cover rounded-lg">
+            <img src="${imagePath}" alt="${names[category] || category}" class="w-full h-48 object-cover rounded-lg" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\\'category-icon\\'><i class=\\'fas ${icons[category] || 'fa-box'}\\'></i></div>';">
            </div>`
         : `<div class="category-icon">
             <i class="fas ${icons[category] || 'fa-box'}"></i>
         </div>`;
     
+    // Ajustar caminho do link também
+    const linkPath = isInPages ? `${category}.html` : `pages/${category}.html`;
+    
     card.innerHTML = `
         ${imageHTML}
         <h3 class="text-2xl font-bold text-primary mb-4">${names[category] || category}</h3>
         ${subcategoriesHTML}
-        <a href="pages/${category}.html" class="btn-primary">
+        <a href="${linkPath}" class="btn-primary">
             Ver Produtos
         </a>
     `;
@@ -258,15 +297,96 @@ function initWhatsAppButton() {
     whatsappButton.rel = 'noopener noreferrer';
     whatsappButton.className = 'whatsapp-float';
     whatsappButton.setAttribute('aria-label', 'Fale conosco no WhatsApp - 11 99488-1827');
-    whatsappButton.innerHTML = '<i class="fab fa-whatsapp"></i>';
     
-    // Adicionar data attribute para verificação
+    // Limpar completamente qualquer conteúdo
+    whatsappButton.textContent = '';
+    whatsappButton.innerHTML = '';
+    
+    // Adicionar APENAS o ícone do WhatsApp, sem classes extras
+    const icon = document.createElement('i');
+    icon.className = 'fab fa-whatsapp';
+    // Remover qualquer classe que possa adicionar margem ou texto
+    icon.classList.remove('mr-2');
+    
+    whatsappButton.appendChild(icon);
+    
+    // Garantir que não haja texto no botão
+    whatsappButton.textContent = '';
+    
+    // Adicionar data attribute para verificação e proteção
     whatsappButton.setAttribute('data-whatsapp-number', whatsappNumber);
+    whatsappButton.setAttribute('data-whatsapp-float', 'true');
+    whatsappButton.setAttribute('id', 'whatsapp-float-button');
     
-    document.body.appendChild(whatsappButton);
+    // Proteger o botão de modificações usando MutationObserver
+    const protectButton = () => {
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'childList' || mutation.type === 'characterData') {
+                    // Se o botão foi modificado, restaurar apenas o ícone
+                    if (whatsappButton.textContent.trim() || 
+                        whatsappButton.querySelectorAll('i').length !== 1 ||
+                        whatsappButton.querySelector('i.mr-2')) {
+                        whatsappButton.textContent = '';
+                        whatsappButton.innerHTML = '';
+                        const icon = document.createElement('i');
+                        icon.className = 'fab fa-whatsapp';
+                        whatsappButton.appendChild(icon);
+                    }
+                }
+            });
+        });
+        
+        observer.observe(whatsappButton, {
+            childList: true,
+            characterData: true,
+            subtree: true
+        });
+    };
     
-    // Debug: verificar se o número está correto
-    console.log('WhatsApp Button criado com número:', whatsappNumber);
+    // Função para adicionar o botão ao DOM
+    const addButtonToDOM = () => {
+        if (document.body) {
+            // Verificar se já existe um botão
+            const existing = document.querySelector('.whatsapp-float') || document.getElementById('whatsapp-float-button');
+            if (existing && existing !== whatsappButton) {
+                existing.remove();
+            }
+            
+            document.body.appendChild(whatsappButton);
+            
+            // Proteger o botão após ser adicionado ao DOM
+            setTimeout(protectButton, 100);
+            
+            // Debug: verificar se o número está correto
+            console.log('✅ WhatsApp Button criado e adicionado ao DOM!');
+            console.log('📍 Posição:', whatsappButton.getBoundingClientRect());
+            console.log('🎨 Classes:', whatsappButton.className);
+            console.log('👁️ Visível:', window.getComputedStyle(whatsappButton).display !== 'none');
+            
+            return true;
+        }
+        return false;
+    };
+    
+    // Tentar adicionar imediatamente
+    if (!addButtonToDOM()) {
+        // Se o body não existe ainda, tentar novamente
+        console.warn('⚠️ Body não encontrado, tentando novamente...');
+        const retryInterval = setInterval(() => {
+            if (addButtonToDOM()) {
+                clearInterval(retryInterval);
+            }
+        }, 100);
+        
+        // Parar após 5 segundos
+        setTimeout(() => {
+            clearInterval(retryInterval);
+            if (!document.querySelector('.whatsapp-float')) {
+                console.error('❌ Não foi possível criar o botão WhatsApp após 5 segundos');
+            }
+        }, 5000);
+    }
 }
 
 // Hero Slider

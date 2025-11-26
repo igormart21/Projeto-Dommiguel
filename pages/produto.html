@@ -27,7 +27,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css?v=3.4">
 </head>
 <body class="font-sans antialiased bg-gray-50">
     
@@ -98,8 +98,8 @@
                         <p class="text-gray-700 leading-relaxed" id="product-description">-</p>
                     </div>
                     
-                    <a href="contato.html" class="btn-accent text-lg px-8 py-4 inline-block text-center w-full lg:w-auto">
-                        <i class="fas fa-envelope mr-2"></i>
+                    <a href="#" id="whatsapp-quotation-btn" class="btn-accent text-lg px-8 py-4 inline-block text-center w-full lg:w-auto">
+                        <i class="fab fa-whatsapp mr-2"></i>
                         Solicitar Cotação
                     </a>
                 </div>
@@ -120,7 +120,8 @@
     <div id="footer-placeholder"></div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/i18n.js?v=2.1"></script>
+    <script src="../assets/js/components.js?v=2.0"></script>
     <script src="../assets/js/products.js"></script>
     <script src="../assets/js/main.js?v=2.0"></script>
     <script>
@@ -170,6 +171,14 @@
                 // Update page title
                 document.title = `${product.name} - Dom Miguel Atacadista`;
                 
+                // Update WhatsApp button
+                const whatsappBtn = document.getElementById('whatsapp-quotation-btn');
+                if (whatsappBtn) {
+                    const whatsappLink = getWhatsAppQuotationLink(product);
+                    whatsappBtn.href = whatsappLink;
+                    whatsappBtn.target = '_blank';
+                }
+                
                 // Render similar products
                 const similarProducts = getSimilarProducts(productId, 4);
                 const similarGrid = document.getElementById('similar-products');
@@ -185,6 +194,8 @@
                         ? `<img src="../${similar.image}" alt="${similar.name}" class="w-full h-full object-cover">`
                         : `<i class="fas fa-box"></i>`;
                     
+                    const whatsappLink = getWhatsAppQuotationLink(similar);
+                    
                     card.innerHTML = `
                         <div class="product-image">
                             ${similarImageHTML}
@@ -193,8 +204,8 @@
                             <h3 class="product-name">${similar.name}</h3>
                             <p class="product-weight">${similar.weight}</p>
                             <p class="product-code">Código: ${similar.code}</p>
-                            <a href="produto.html?id=${similar.id}" class="btn-outline mt-auto text-center">
-                                Ver Detalhes
+                            <a href="${whatsappLink}" target="_blank" class="btn-outline mt-auto text-center">
+                                <i class="fab fa-whatsapp mr-2"></i> Solicitar Cotação
                             </a>
                         </div>
                     `;

@@ -59,6 +59,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         const fixedHeaderHTML = fixPaths(headerHTML, isInPages);
         headerPlaceholder.innerHTML = fixedHeaderHTML;
         initHeader();
+        
+        // Inicializar sistema de idiomas após header carregar
+        setTimeout(() => {
+            initLanguageSystem();
+            // Reinicializar após um pequeno delay para garantir que tudo está pronto
+            setTimeout(() => {
+                initLanguageSystem();
+            }, 500);
+        }, 200);
     }
     
     // Load Footer
@@ -68,6 +77,21 @@ document.addEventListener('DOMContentLoaded', async () => {
         const fixedFooterHTML = fixPaths(footerHTML, isInPages);
         footerPlaceholder.innerHTML = fixedFooterHTML;
     }
+    
+    // Garantir que o botão WhatsApp seja criado após carregar componentes
+    setTimeout(() => {
+        if (typeof initWhatsAppButton === 'function') {
+            const existingButton = document.querySelector('.whatsapp-float') || document.getElementById('whatsapp-float-button');
+            if (!existingButton) {
+                console.log('🔧 Criando botão WhatsApp após carregar componentes...');
+                initWhatsAppButton();
+            } else {
+                console.log('✅ Botão WhatsApp já existe');
+            }
+        } else {
+            console.error('❌ initWhatsAppButton não está definido!');
+        }
+    }, 500);
 });
 
 // Header functionality
@@ -100,6 +124,9 @@ function initHeader() {
         });
     }
     
+    // Language Dropdown Toggle
+    initLanguageDropdown();
+    
     // Header Scroll Effect
     const header = document.getElementById('header');
     if (header) {
@@ -122,5 +149,112 @@ function initHeader() {
             link.classList.remove('text-white');
         }
     });
+}
+
+// Função para inicializar dropdown de idiomas
+function initLanguageDropdown() {
+    const languageBtn = document.getElementById('language-btn');
+    const languageDropdown = document.getElementById('language-dropdown');
+    
+    if (languageBtn && languageDropdown) {
+        // Remover event listeners anteriores se existirem
+        const newBtn = languageBtn.cloneNode(true);
+        languageBtn.parentNode.replaceChild(newBtn, languageBtn);
+        
+        // Atualizar referência
+        const updatedBtn = document.getElementById('language-btn');
+        const updatedDropdown = document.getElementById('language-dropdown');
+        
+        updatedBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Botão de idioma clicado!'); // Debug
+            const isVisible = updatedDropdown.classList.contains('visible');
+            console.log('Dropdown visível?', isVisible); // Debug
+            if (isVisible) {
+                updatedDropdown.classList.remove('opacity-100', 'visible');
+                updatedDropdown.classList.add('opacity-0', 'invisible');
+            } else {
+                updatedDropdown.classList.remove('opacity-0', 'invisible');
+                updatedDropdown.classList.add('opacity-100', 'visible');
+                console.log('Dropdown aberto!'); // Debug
+            }
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('#language-selector') && !e.target.closest('#language-dropdown')) {
+                updatedDropdown.classList.add('opacity-0', 'invisible');
+                updatedDropdown.classList.remove('opacity-100', 'visible');
+            }
+        });
+    } else {
+        console.error('language-btn ou language-dropdown não encontrados!', { languageBtn, languageDropdown });
+    }
+}
+
+// Função para inicializar sistema de idiomas
+function initLanguageSystem() {
+    if (typeof setLanguage === 'function') {
+        const savedLang = localStorage.getItem('language') || 'pt';
+        console.log('Inicializando sistema de idiomas. Idioma salvo:', savedLang);
+        setLanguage(savedLang);
+        
+        // Adicionar event listeners diretamente nos botões
+        const languageOptions = document.querySelectorAll('.language-option, .language-option-mobile');
+        console.log('Botões de idioma encontrados:', languageOptions.length);
+        
+        if (languageOptions.length === 0) {
+            console.warn('Nenhum botão de idioma encontrado! Tentando novamente em 500ms...');
+            setTimeout(() => initLanguageSystem(), 500);
+            return;
+        }
+        
+        languageOptions.forEach((btn, index) => {
+            const lang = btn.getAttribute('data-lang');
+            console.log(`Configurando botão ${index}: ${lang}`);
+            
+            // Verificar se já tem listener (usando data attribute)
+            if (btn.dataset.listenerAdded === 'true') {
+                console.log(`Botão ${index} já tem listener, pulando...`);
+                return;
+            }
+            
+            // Marcar como tendo listener
+            btn.dataset.listenerAdded = 'true';
+            
+            // Adicionar listener
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const selectedLang = this.getAttribute('data-lang');
+                console.log('🎯 CLIQUE NO BOTÃO DE IDIOMA! Idioma selecionado:', selectedLang);
+                
+                if (selectedLang && typeof setLanguage === 'function') {
+                    console.log('✅ Chamando setLanguage com:', selectedLang);
+                    setLanguage(selectedLang);
+                    
+                    // Fechar dropdown após seleção
+                    const languageDropdown = document.getElementById('language-dropdown');
+                    if (languageDropdown) {
+                        languageDropdown.classList.add('opacity-0', 'invisible');
+                        languageDropdown.classList.remove('opacity-100', 'visible');
+                        console.log('Dropdown fechado');
+                    }
+                } else {
+                    console.error('❌ Erro: Idioma inválido ou setLanguage não definido', { 
+                        selectedLang, 
+                        setLanguageExists: typeof setLanguage 
+                    });
+                }
+            });
+            
+            console.log(`✅ Listener adicionado ao botão ${index} (${lang})`);
+        });
+        
+        console.log('✅ Sistema de idiomas inicializado com sucesso!');
+    } else {
+        console.error('❌ ERRO: setLanguage não está definido! Verifique se i18n.js foi carregado antes de components.js');
+    }
 }
 

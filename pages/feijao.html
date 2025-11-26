@@ -35,7 +35,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css?v=3.4">
 </head>
 <body class="font-sans antialiased bg-gray-50">
     
@@ -73,6 +73,13 @@
             <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" id="products-grid">
                 <!-- Products will be rendered by JavaScript -->
             </div>
+            
+            <!-- Ver Mais Produtos Button -->
+            <div class="text-center mt-12" data-aos="fade-up">
+                <a href="#" id="ver-mais-produtos-btn" class="btn-accent text-lg px-8 py-4 inline-block">
+                    <i class="fab fa-whatsapp mr-2"></i> Ver Mais Produtos
+                </a>
+            </div>
         </div>
     </section>
 
@@ -81,9 +88,10 @@
 
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="../assets/js/components.js"></script>
-    <script src="../assets/js/products.js"></script>
-    <script src="../assets/js/main.js?v=3.0"></script>
+    <script src="../assets/js/i18n.js?v=2.1"></script>
+    <script src="../assets/js/components.js?v=2.0"></script>
+    <script src="../assets/js/products.js?v=5.4"></script>
+    <script src="../assets/js/main.js?v=3.5"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const products = getProductsByCategory('feijao');
@@ -98,8 +106,10 @@
                     
                     // Verificar se tem imagem ou usar ícone padrão
                     const imageHTML = product.image && product.image.trim() !== ''
-                        ? `<img src="../${product.image}" alt="${product.name}" class="w-full h-full object-cover">`
+                        ? `<img src="../${product.image}?v=2.1" alt="${product.name}" class="w-full h-full object-contain" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\\'fas fa-seedling\\'></i>';">`
                         : `<i class="fas fa-seedling"></i>`;
+                    
+                    const whatsappLink = getWhatsAppQuotationLink(product);
                     
                     card.innerHTML = `
                         <div class="product-image">
@@ -110,8 +120,8 @@
                             <p class="product-weight">${product.weight}</p>
                             <p class="product-code">Código: ${product.code}</p>
                             <p class="product-description">${product.description || ''}</p>
-                            <a href="produto.html?id=${product.id}" class="btn-outline mt-auto text-center">
-                                Ver Detalhes
+                            <a href="${whatsappLink}" target="_blank" class="btn-outline mt-auto text-center">
+                                <i class="fab fa-whatsapp mr-2"></i> Solicitar Cotação
                             </a>
                         </div>
                     `;
@@ -120,6 +130,16 @@
                 });
             } else {
                 grid.innerHTML = '<p class="col-span-full text-center text-gray-600 py-8">Produtos em breve...</p>';
+            }
+            
+            // Configurar botão "Ver Mais Produtos"
+            const verMaisBtn = document.getElementById('ver-mais-produtos-btn');
+            if (verMaisBtn) {
+                const whatsappMessage = encodeURIComponent(
+                    `Olá! Gostaria de ver mais produtos de feijão disponíveis no catálogo da Dom Miguel Atacadista.`
+                );
+                verMaisBtn.href = `https://wa.me/5511994881827?text=${whatsappMessage}`;
+                verMaisBtn.target = '_blank';
             }
         });
     </script>
