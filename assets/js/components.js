@@ -61,32 +61,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         initHeader();
         
         // Inicializar sistema de idiomas após header carregar
-        setTimeout(() => {
-            initLanguageSystem();
-            // Reinicializar após um pequeno delay para garantir que tudo está pronto
-            setTimeout(() => {
-                initLanguageSystem();
-            }, 500);
-        }, 200);
-    }
-    
-    // Load Footer
-    const footerPlaceholder = document.getElementById('footer-placeholder');
-    if (footerPlaceholder) {
-        const footerHTML = await loadComponent(`${basePath}components/footer.html`);
-        const fixedFooterHTML = fixPaths(footerHTML, isInPages);
-        footerPlaceholder.innerHTML = fixedFooterHTML;
-    }
-    
-    // Garantir que o botão WhatsApp seja criado após carregar componentes
-    setTimeout(() => {
-        if (typeof initWhatsAppButton === 'function') {
-            const existingButton = document.querySelector('.whatsapp-float');
-            if (!existingButton) {
-                initWhatsAppButton();
-            }
-        }
-    }, 300);
+        // setTimeout(() => {
+    //     if (typeof initWhatsAppButton === 'function') {
+    //         const existingButton = document.querySelector('.whatsapp-float');
+    //         if (!existingButton) {
+    //             initWhatsAppButton();
+    //         }
+    //     }
+    // }, 300);
 });
 
 // Header functionality

@@ -21,6 +21,10 @@ const translations = {
                 title: 'COMÉRCIO EXTERIOR',
                 description: 'Importação e exportação de produtos alimentícios com excelência e agilidade para todo o mundo'
             },
+            milho: {
+                title: 'MILHO',
+                description: 'MILHO E FARELO DE MILHO'
+            },
             verCategorias: 'Ver Categorias'
         },
         categories: {
@@ -87,6 +91,10 @@ const translations = {
                 title: 'COMERCIO EXTERIOR',
                 description: 'Importación y exportación de productos alimenticios con excelencia y agilidad para todo el mundo'
             },
+            milho: {
+                title: 'MAÍZ',
+                description: 'MAÍZ Y HARINA DE MAÍZ'
+            },
             verCategorias: 'Ver Categorías'
         },
         categories: {
@@ -152,6 +160,10 @@ const translations = {
             comercio: {
                 title: 'FOREIGN TRADE',
                 description: 'Import and export of food products with excellence and agility worldwide'
+            },
+            milho: {
+                title: 'CORN',
+                description: 'CORN AND CORN MEAL'
             },
             verCategorias: 'View Categories'
         },
@@ -278,16 +290,18 @@ function updateDynamicContent() {
     const heroTitles = document.querySelectorAll('.hero-slide-title');
     const heroDescriptions = document.querySelectorAll('.hero-slide p');
     
-    if (heroTitles.length >= 3) {
+    if (heroTitles.length >= 4) {
         heroTitles[0].textContent = t('hero.cafe.title');
         heroTitles[1].textContent = t('hero.soja.title');
         heroTitles[2].textContent = t('hero.comercio.title');
+        heroTitles[3].textContent = t('hero.milho.title');
     }
     
-    if (heroDescriptions.length >= 3) {
+    if (heroDescriptions.length >= 4) {
         heroDescriptions[0].textContent = t('hero.cafe.description');
         heroDescriptions[1].textContent = t('hero.soja.description');
         heroDescriptions[2].textContent = t('hero.comercio.description');
+        heroDescriptions[3].textContent = t('hero.milho.description');
     }
     
     // Botões "Ver Categorias" no hero
@@ -298,7 +312,7 @@ function updateDynamicContent() {
     // Botões "Solicitar Cotação" (EXCLUIR o botão flutuante)
     document.querySelectorAll('a[href*="wa.me"]').forEach(btn => {
         // PROTEGER o botão flutuante - nunca modificar
-        if (btn.classList.contains('whatsapp-float') || btn.hasAttribute('data-whatsapp-number')) {
+        if (btn.id === 'whatsapp-btn' || btn.classList.contains('whatsapp-float') || btn.hasAttribute('data-whatsapp-number')) {
             // Garantir que o botão flutuante tenha apenas o ícone
             if (btn.querySelector('i.fab.fa-whatsapp')) {
                 const icon = btn.querySelector('i.fab.fa-whatsapp');

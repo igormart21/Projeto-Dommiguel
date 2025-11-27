@@ -268,77 +268,11 @@ function renderCategoryCard(category, container) {
 }
 
 // WhatsApp Floating Button
+// WhatsApp Floating Button - DESABILITADO - Botão está no HTML com id="whatsapp-btn"
 function initWhatsAppButton() {
-    // Número do WhatsApp: 11 99488-1827
-    // Formato para WhatsApp API: 55 (país) + 11 (DDD) + 994881827 (número sem hífen)
-    const whatsappNumber = '5511994881827'; // NÚMERO ATUALIZADO: 11 99488-1827
-    const defaultMessage = encodeURIComponent('Olá! Gostaria de saber mais sobre os produtos da Dom Miguel Atacadista.');
-    
-    // Remover TODOS os botões antigos (para garantir atualização)
-    const existingButtons = document.querySelectorAll('.whatsapp-float');
-    existingButtons.forEach(btn => btn.remove());
-    
-    // Criar o botão com o número correto
-    const whatsappButton = document.createElement('a');
-    whatsappButton.href = `https://wa.me/${whatsappNumber}?text=${defaultMessage}`;
-    whatsappButton.target = '_blank';
-    whatsappButton.rel = 'noopener noreferrer';
-    whatsappButton.className = 'whatsapp-float';
-    whatsappButton.setAttribute('aria-label', 'Fale conosco no WhatsApp - 11 99488-1827');
-    
-    // Limpar completamente qualquer conteúdo
-    whatsappButton.textContent = '';
-    whatsappButton.innerHTML = '';
-    
-    // Adicionar APENAS o ícone do WhatsApp, sem classes extras
-    const icon = document.createElement('i');
-    icon.className = 'fab fa-whatsapp';
-    // Remover qualquer classe que possa adicionar margem ou texto
-    icon.classList.remove('mr-2');
-    
-    whatsappButton.appendChild(icon);
-    
-    // Garantir que não haja texto no botão
-    whatsappButton.textContent = '';
-    
-    // Adicionar data attribute para verificação e proteção
-    whatsappButton.setAttribute('data-whatsapp-number', whatsappNumber);
-    whatsappButton.setAttribute('data-whatsapp-float', 'true');
-    whatsappButton.setAttribute('id', 'whatsapp-float-button');
-    
-    // Proteger o botão de modificações usando MutationObserver
-    const protectButton = () => {
-        const observer = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-                if (mutation.type === 'childList' || mutation.type === 'characterData') {
-                    // Se o botão foi modificado, restaurar apenas o ícone
-                    if (whatsappButton.textContent.trim() || 
-                        whatsappButton.querySelectorAll('i').length !== 1 ||
-                        whatsappButton.querySelector('i.mr-2')) {
-                        whatsappButton.textContent = '';
-                        whatsappButton.innerHTML = '';
-                        const icon = document.createElement('i');
-                        icon.className = 'fab fa-whatsapp';
-                        whatsappButton.appendChild(icon);
-                    }
-                }
-            });
-        });
-        
-        observer.observe(whatsappButton, {
-            childList: true,
-            characterData: true,
-            subtree: true
-        });
-    };
-    
-    document.body.appendChild(whatsappButton);
-    
-    // Proteger o botão após ser adicionado ao DOM
-    setTimeout(protectButton, 100);
-    
-    // Debug: verificar se o número está correto
-    console.log('WhatsApp Button criado com número:', whatsappNumber);
+    // Função desabilitada - botão está no HTML diretamente
+    // NÃO remover botões existentes
+    return;
 }
 
 // Hero Slider

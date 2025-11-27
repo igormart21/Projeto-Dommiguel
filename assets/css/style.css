@@ -675,6 +675,27 @@ header.scrolled {
 }
 
 /* WhatsApp Floating Button */
+
+/* ===== PROTEÇÃO MÁXIMA PARA #whatsapp-btn ===== */
+#whatsapp-btn {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+#whatsapp-btn svg {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+#whatsapp-btn > *:not(svg) {
+    display: none !important;
+}
+
+/* ===== FIM PROTEÇÃO #whatsapp-btn ===== */
+
+
 .whatsapp-float {
     position: fixed;
     bottom: 20px;
@@ -706,7 +727,7 @@ header.scrolled {
 }
 
 /* Esconder qualquer texto que possa aparecer no botão */
-.whatsapp-float:not(:has(i)) {
+.whatsapp-float:not(:has(i)):not(:has(svg)):not(#whatsapp-btn) {
     display: none;
 }
 
@@ -755,7 +776,7 @@ header.scrolled {
 }
 
 /* Esconder qualquer texto que apareça no botão */
-.whatsapp-float > *:not(i) {
+.whatsapp-float > *:not(i):not(svg) {
     display: none !important;
 }
 
