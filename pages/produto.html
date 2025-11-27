@@ -27,7 +27,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../assets/css/style.css?v=3.6">
+    <link rel="stylesheet" href="../assets/css/style.css?v=4.8">
     
 
             
@@ -36,7 +36,109 @@
 <body class="font-sans antialiased bg-gray-50">
     
     
-    <div id="header-placeholder"></div>
+    <!-- Header -->
+<!-- Header Premium Component -->
+<header id="header" class="fixed top-0 left-0 right-0 z-50 bg-primary shadow-lg transition-all duration-300">
+    <nav class="container mx-auto px-4 lg:px-8 py-4">
+        <div class="flex items-center justify-between">
+            <!-- Logo -->
+            <a href="../index.html" class="flex items-center group">
+                <img src="../assets/img/logo-dom-miguel.png" 
+                     alt="Dom Miguel Atacadista" 
+                     class="h-16 md:h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-105">
+            </a>
+            
+            <!-- Menu Desktop -->
+            <ul class="hidden lg:flex items-center space-x-8">
+                <li>
+                    <a href="../index.html" class="nav-link text-white hover:text-accent font-medium transition-colors duration-300 relative group" data-i18n="nav.home">
+                        Home
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../pages/sobre.html" class="nav-link text-white hover:text-accent font-medium transition-colors duration-300 relative group" data-i18n="nav.about">
+                        Sobre Nós
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../pages/produtos.html" class="nav-link text-white hover:text-accent font-medium transition-colors duration-300 relative group" data-i18n="nav.products">
+                        Produtos
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../pages/contato.html" class="nav-link text-white hover:text-accent font-medium transition-colors duration-300 relative group" data-i18n="nav.contact">
+                        Contato
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                </li>
+            </ul>
+            
+            <!-- Language Selector -->
+            <div class="hidden lg:flex items-center space-x-2 ml-6">
+                <div class="relative" id="language-selector">
+                    <button id="language-btn" class="flex items-center space-x-2 text-white hover:text-accent transition-colors duration-300">
+                        <span id="current-flag" class="text-2xl">🇧🇷</span>
+                        <i class="fas fa-chevron-down text-sm"></i>
+                    </button>
+                    <div id="language-dropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl opacity-0 invisible transition-all duration-300 z-50">
+                        <div class="py-2">
+                            <button class="language-option w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center space-x-3 transition-colors" data-lang="pt">
+                                <span class="text-2xl">🇧🇷</span>
+                                <span>Português</span>
+                            </button>
+                            <button class="language-option w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center space-x-3 transition-colors" data-lang="es">
+                                <span class="text-2xl">🇪🇸</span>
+                                <span>Español</span>
+                            </button>
+                            <button class="language-option w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center space-x-3 transition-colors" data-lang="en">
+                                <span class="text-2xl">🇺🇸</span>
+                                <span>English</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Menu Mobile Button -->
+            <button id="mobile-menu-btn" class="lg:hidden text-white text-2xl focus:outline-none hover:text-accent transition-colors">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Menu Mobile -->
+        <div id="mobile-menu" class="hidden lg:hidden mt-4 pb-4 border-t border-white/20">
+            <ul class="flex flex-col space-y-4 pt-4">
+                <li>
+                    <a href="../index.html" class="block text-white hover:text-accent font-medium transition-colors py-2" data-i18n="nav.home">Home</a>
+                </li>
+                <li>
+                    <a href="../pages/sobre.html" class="block text-white hover:text-accent font-medium transition-colors py-2" data-i18n="nav.about">Sobre Nós</a>
+                </li>
+                <li>
+                    <a href="../pages/produtos.html" class="block text-white hover:text-accent font-medium transition-colors py-2" data-i18n="nav.products">Produtos</a>
+                </li>
+                <li>
+                    <a href="../pages/contato.html" class="block text-white hover:text-accent font-medium transition-colors py-2" data-i18n="nav.contact">Contato</a>
+                </li>
+            </ul>
+            
+            <!-- Language Selector Mobile -->
+            <div class="flex items-center space-x-4 pt-4 border-t border-white/20 mt-4">
+                <span class="text-white text-sm">Idioma:</span>
+                <div class="flex space-x-3">
+                    <button class="language-option-mobile text-2xl hover:scale-110 transition-transform" data-lang="pt" title="Português">🇧🇷</button>
+                    <button class="language-option-mobile text-2xl hover:scale-110 transition-transform" data-lang="es" title="Español">🇪🇸</button>
+                    <button class="language-option-mobile text-2xl hover:scale-110 transition-transform" data-lang="en" title="English">🇺🇸</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+
     
     <!-- Breadcrumb -->
     <section class="pt-24 pb-8 bg-white">
@@ -119,11 +221,77 @@
         </div>
     </section>
 
-    <div id="footer-placeholder"></div>
+    <!-- Footer -->
+<!-- Footer Premium Component -->
+<footer class="bg-primary text-white py-16 mt-20">
+    <div class="container mx-auto px-4 lg:px-8">
+        <div class="grid md:grid-cols-4 gap-8 mb-12">
+            <!-- Logo e Descrição -->
+            <div class="md:col-span-2">
+                <div class="mb-6">
+                    <img src="../assets/img/logo-dom-miguel.png" 
+                         alt="Dom Miguel Atacadista" 
+                         class="h-16 md:h-20 w-auto object-contain brightness-0 invert opacity-90 hover:opacity-100 transition-opacity">
+                </div>
+                <p class="text-white/80 text-sm leading-relaxed max-w-md">
+                    Excelência em distribuição para todo o Brasil. Portfólio completo de produtos alimentícios e embalagens no atacado.
+                </p>
+            </div>
+            
+            <!-- Links Rápidos -->
+            <div>
+                <h4 class="font-semibold mb-4 text-accent">Links Rápidos</h4>
+                <ul class="space-y-2">
+                    <li><a href="../index.html" class="text-white/80 hover:text-white transition-colors text-sm">Home</a></li>
+                    <li><a href="../pages/sobre.html" class="text-white/80 hover:text-white transition-colors text-sm">Sobre Nós</a></li>
+                    <li><a href="../pages/produtos.html" class="text-white/80 hover:text-white transition-colors text-sm">Produtos</a></li>
+                    <li><a href="../pages/contato.html" class="text-white/80 hover:text-white transition-colors text-sm">Contato</a></li>
+                </ul>
+            </div>
+            
+            <!-- Contato Footer -->
+            <div>
+                <h4 class="font-semibold mb-4 text-accent">Contato</h4>
+                <ul class="space-y-2 text-white/80 text-sm">
+                    <li class="flex items-start">
+                        <i class="fas fa-map-marker-alt mr-3 mt-1 text-accent"></i>
+                        <span>Rua das Hortênsias, 9<br>Village I - CEP: 45.810-000</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-id-card mr-3 mt-1 text-accent"></i>
+                        <span>CNPJ: 40.613.582/0001-04</span>
+                    </li>
+                </ul>
+                
+                <!-- Redes Sociais -->
+                <div class="flex space-x-4 mt-6">
+                    <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-accent transition-colors">
+                        <i class="fab fa-facebook-f text-sm"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-accent transition-colors">
+                        <i class="fab fa-instagram text-sm"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-accent transition-colors">
+                        <i class="fab fa-linkedin-in text-sm"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Copyright -->
+        <div class="border-t border-white/20 pt-8 text-center">
+            <p class="text-white/60 text-sm">
+                &copy; 2024 Dom Miguel Atacadista. Todos os direitos reservados.
+            </p>
+        </div>
+    </div>
+</footer>
+
+
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="../assets/js/i18n.js?v=2.4"></script>
-    <script src="../assets/js/components.js?v=2.3"></script>
+    <script src="../assets/js/components.js?v=3.1"></script>
     <script src="../assets/js/products.js?v=2.4"></script>
     <script src="../assets/js/main.js?v=7.0"></script>
     <script>
