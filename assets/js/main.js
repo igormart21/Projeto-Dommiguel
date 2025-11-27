@@ -1,7 +1,7 @@
 // Main JavaScript - Premium Features
 
-// Initialize AOS (Animate On Scroll)
-document.addEventListener('DOMContentLoaded', () => {
+// Função para inicializar tudo
+function initializeAll() {
     if (typeof AOS !== 'undefined') {
         AOS.init({
             duration: 800,
@@ -20,12 +20,30 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize smooth scroll
     initSmoothScroll();
     
-    // Initialize WhatsApp button
+    // Initialize WhatsApp button (SEMPRE inicializar)
     initWhatsAppButton();
     
     // Initialize hero slider
     initHeroSlider();
-});
+}
+
+// Initialize AOS (Animate On Scroll)
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeAll);
+} else {
+    // DOM já está carregado, executar imediatamente
+    initializeAll();
+}
+
+// Garantir que o botão WhatsApp seja criado mesmo se a página já estiver carregada
+if (document.readyState === 'complete') {
+    setTimeout(() => {
+        const existingButton = document.querySelector('.whatsapp-float');
+        if (!existingButton) {
+            initWhatsAppButton();
+        }
+    }, 500);
+}
 
 // Phone Mask
 function initPhoneMask() {
@@ -148,8 +166,12 @@ function renderProductCard(product, container) {
 // Category Card Renderer
 function renderCategoryCard(category, container) {
     const card = document.createElement('div');
-    card.className = 'category-card premium-card';
+    card.className = `category-card premium-card category-${category}`;
     card.setAttribute('data-aos', 'fade-up');
+    
+    // Detectar se estamos em uma página dentro de /pages/
+    const isInPages = window.location.pathname.includes('/pages/');
+    const basePath = isInPages ? '../' : '';
     
     const icons = {
         'arroz': 'fa-seedling',
@@ -163,7 +185,7 @@ function renderCategoryCard(category, container) {
     const names = {
         'arroz': 'Arroz',
         'acucar': 'Açúcar',
-        'frango': 'Frango',
+        'frango': 'Ovos de Codorna',
         'cafe': 'Café',
         'feijao': 'Feijão',
         'oleo': 'Óleo'
@@ -176,14 +198,14 @@ function renderCategoryCard(category, container) {
             'Integral'
         ],
         'acucar': [
-            'Icumsa',
+            'Icumsa 45',
             'Icumsa 150',
             'VHP Icumsa 600-1200'
         ],
         'frango': [
-            'Pé',
-            'Meio da asa',
-            'Observação: Demais cortes sob consulta.'
+            'Ovos de codorna em conserva',
+            'Azeitonas e palmitos',
+            'Linha completa de conservas'
         ],
         'cafe': [
             'Verde cru em grãos',
@@ -204,7 +226,7 @@ function renderCategoryCard(category, container) {
     const categoryImages = {
         'arroz': 'assets/img/milled-rice-black-bowl-black-cement-floor.jpg',
         'acucar': 'assets/img/granulated-sugar-refined-sugar-wooden-dishes-groceries_420001-15036.jpg',
-        'frango': 'assets/img/raw-chicken-meat.jpg',
+        'frango': 'assets/img/WhatsApp Image 2025-11-26 at 13.39.41.png',
         'cafe': 'assets/img/close-up-view-dark-fresh-roasted-coffee-beans-coffee-beans-background.jpg',
         'feijao': 'assets/img/uncooked-red-beans-wooden-bowl.jpg',
         'oleo': 'assets/img/soybean-oil-soybean-food-beverage-products-food-nutrition-concept.jpg'
@@ -220,19 +242,24 @@ function renderCategoryCard(category, container) {
     }
     
     const categoryImage = categoryImages[category] || '';
-    const imageHTML = categoryImage 
+    // Ajustar caminho da imagem baseado na localização da página
+    const imagePath = categoryImage ? `${basePath}${categoryImage}` : '';
+    const imageHTML = imagePath 
         ? `<div class="category-image mb-4">
-            <img src="${categoryImage}" alt="${names[category] || category}" class="w-full h-48 object-cover rounded-lg">
+            <img src="${imagePath}" alt="${names[category] || category}" class="w-full h-48 object-cover rounded-lg" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\\'category-icon\\'><i class=\\'fas ${icons[category] || 'fa-box'}\\'></i></div>';">
            </div>`
         : `<div class="category-icon">
             <i class="fas ${icons[category] || 'fa-box'}"></i>
         </div>`;
     
+    // Ajustar caminho do link também
+    const linkPath = isInPages ? `${category}.html` : `pages/${category}.html`;
+    
     card.innerHTML = `
         ${imageHTML}
         <h3 class="text-2xl font-bold text-primary mb-4">${names[category] || category}</h3>
         ${subcategoriesHTML}
-        <a href="pages/${category}.html" class="btn-primary">
+        <a href="${linkPath}" class="btn-primary">
             Ver Produtos
         </a>
     `;
@@ -258,12 +285,57 @@ function initWhatsAppButton() {
     whatsappButton.rel = 'noopener noreferrer';
     whatsappButton.className = 'whatsapp-float';
     whatsappButton.setAttribute('aria-label', 'Fale conosco no WhatsApp - 11 99488-1827');
-    whatsappButton.innerHTML = '<i class="fab fa-whatsapp"></i>';
     
-    // Adicionar data attribute para verificação
+    // Limpar completamente qualquer conteúdo
+    whatsappButton.textContent = '';
+    whatsappButton.innerHTML = '';
+    
+    // Adicionar APENAS o ícone do WhatsApp, sem classes extras
+    const icon = document.createElement('i');
+    icon.className = 'fab fa-whatsapp';
+    // Remover qualquer classe que possa adicionar margem ou texto
+    icon.classList.remove('mr-2');
+    
+    whatsappButton.appendChild(icon);
+    
+    // Garantir que não haja texto no botão
+    whatsappButton.textContent = '';
+    
+    // Adicionar data attribute para verificação e proteção
     whatsappButton.setAttribute('data-whatsapp-number', whatsappNumber);
+    whatsappButton.setAttribute('data-whatsapp-float', 'true');
+    whatsappButton.setAttribute('id', 'whatsapp-float-button');
+    
+    // Proteger o botão de modificações usando MutationObserver
+    const protectButton = () => {
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'childList' || mutation.type === 'characterData') {
+                    // Se o botão foi modificado, restaurar apenas o ícone
+                    if (whatsappButton.textContent.trim() || 
+                        whatsappButton.querySelectorAll('i').length !== 1 ||
+                        whatsappButton.querySelector('i.mr-2')) {
+                        whatsappButton.textContent = '';
+                        whatsappButton.innerHTML = '';
+                        const icon = document.createElement('i');
+                        icon.className = 'fab fa-whatsapp';
+                        whatsappButton.appendChild(icon);
+                    }
+                }
+            });
+        });
+        
+        observer.observe(whatsappButton, {
+            childList: true,
+            characterData: true,
+            subtree: true
+        });
+    };
     
     document.body.appendChild(whatsappButton);
+    
+    // Proteger o botão após ser adicionado ao DOM
+    setTimeout(protectButton, 100);
     
     // Debug: verificar se o número está correto
     console.log('WhatsApp Button criado com número:', whatsappNumber);

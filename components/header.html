@@ -12,30 +12,56 @@
             <!-- Menu Desktop -->
             <ul class="hidden lg:flex items-center space-x-8">
                 <li>
-                    <a href="index.html" class="nav-link text-white hover:text-accent font-medium transition-colors duration-300 relative group">
+                    <a href="index.html" class="nav-link text-white hover:text-accent font-medium transition-colors duration-300 relative group" data-i18n="nav.home">
                         Home
                         <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300"></span>
                     </a>
                 </li>
                 <li>
-                    <a href="pages/sobre.html" class="nav-link text-white hover:text-accent font-medium transition-colors duration-300 relative group">
+                    <a href="pages/sobre.html" class="nav-link text-white hover:text-accent font-medium transition-colors duration-300 relative group" data-i18n="nav.about">
                         Sobre Nós
                         <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300"></span>
                     </a>
                 </li>
                 <li>
-                    <a href="pages/produtos.html" class="nav-link text-white hover:text-accent font-medium transition-colors duration-300 relative group">
+                    <a href="pages/produtos.html" class="nav-link text-white hover:text-accent font-medium transition-colors duration-300 relative group" data-i18n="nav.products">
                         Produtos
                         <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300"></span>
                     </a>
                 </li>
                 <li>
-                    <a href="pages/contato.html" class="nav-link text-white hover:text-accent font-medium transition-colors duration-300 relative group">
+                    <a href="pages/contato.html" class="nav-link text-white hover:text-accent font-medium transition-colors duration-300 relative group" data-i18n="nav.contact">
                         Contato
                         <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300"></span>
                     </a>
                 </li>
             </ul>
+            
+            <!-- Language Selector -->
+            <div class="hidden lg:flex items-center space-x-2 ml-6">
+                <div class="relative" id="language-selector">
+                    <button id="language-btn" class="flex items-center space-x-2 text-white hover:text-accent transition-colors duration-300">
+                        <span id="current-flag" class="text-2xl">🇧🇷</span>
+                        <i class="fas fa-chevron-down text-sm"></i>
+                    </button>
+                    <div id="language-dropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl opacity-0 invisible transition-all duration-300 z-50">
+                        <div class="py-2">
+                            <button class="language-option w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center space-x-3 transition-colors" data-lang="pt">
+                                <span class="text-2xl">🇧🇷</span>
+                                <span>Português</span>
+                            </button>
+                            <button class="language-option w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center space-x-3 transition-colors" data-lang="es">
+                                <span class="text-2xl">🇪🇸</span>
+                                <span>Español</span>
+                            </button>
+                            <button class="language-option w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center space-x-3 transition-colors" data-lang="en">
+                                <span class="text-2xl">🇺🇸</span>
+                                <span>English</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
             <!-- Menu Mobile Button -->
             <button id="mobile-menu-btn" class="lg:hidden text-white text-2xl focus:outline-none hover:text-accent transition-colors">
@@ -47,18 +73,28 @@
         <div id="mobile-menu" class="hidden lg:hidden mt-4 pb-4 border-t border-white/20">
             <ul class="flex flex-col space-y-4 pt-4">
                 <li>
-                    <a href="index.html" class="block text-white hover:text-accent font-medium transition-colors py-2">Home</a>
+                    <a href="index.html" class="block text-white hover:text-accent font-medium transition-colors py-2" data-i18n="nav.home">Home</a>
                 </li>
                 <li>
-                    <a href="pages/sobre.html" class="block text-white hover:text-accent font-medium transition-colors py-2">Sobre Nós</a>
+                    <a href="pages/sobre.html" class="block text-white hover:text-accent font-medium transition-colors py-2" data-i18n="nav.about">Sobre Nós</a>
                 </li>
                 <li>
-                    <a href="pages/produtos.html" class="block text-white hover:text-accent font-medium transition-colors py-2">Produtos</a>
+                    <a href="pages/produtos.html" class="block text-white hover:text-accent font-medium transition-colors py-2" data-i18n="nav.products">Produtos</a>
                 </li>
                 <li>
-                    <a href="pages/contato.html" class="block text-white hover:text-accent font-medium transition-colors py-2">Contato</a>
+                    <a href="pages/contato.html" class="block text-white hover:text-accent font-medium transition-colors py-2" data-i18n="nav.contact">Contato</a>
                 </li>
             </ul>
+            
+            <!-- Language Selector Mobile -->
+            <div class="flex items-center space-x-4 pt-4 border-t border-white/20 mt-4">
+                <span class="text-white text-sm">Idioma:</span>
+                <div class="flex space-x-3">
+                    <button class="language-option-mobile text-2xl hover:scale-110 transition-transform" data-lang="pt" title="Português">🇧🇷</button>
+                    <button class="language-option-mobile text-2xl hover:scale-110 transition-transform" data-lang="es" title="Español">🇪🇸</button>
+                    <button class="language-option-mobile text-2xl hover:scale-110 transition-transform" data-lang="en" title="English">🇺🇸</button>
+                </div>
+            </div>
         </div>
     </nav>
 </header>
