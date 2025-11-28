@@ -286,7 +286,7 @@ function initHeroSlider() {
     
     let currentSlide = 0;
     let autoplayInterval;
-    const autoplayDelay = 8000; // 8 segundos
+    const autoplayDelay = 12000; // 12 segundos
     
     // Função para mostrar slide específico
     function showSlide(index) {

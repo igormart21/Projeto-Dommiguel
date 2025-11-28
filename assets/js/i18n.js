@@ -10,8 +10,8 @@ const translations = {
         },
         hero: {
             cafe: {
-                title: 'CAFÉ',
-                description: 'Cafés selecionados de qualidade superior para distribuição nacional e internacional'
+                title: 'AÇÚCAR',
+                description: 'Açúcar premium selecionado para distribuição nacional e internacional'
             },
             soja: {
                 title: 'SOJA',
@@ -80,8 +80,8 @@ const translations = {
         },
         hero: {
             cafe: {
-                title: 'CAFÉ',
-                description: 'Cafés seleccionados de calidad superior para distribución nacional e internacional'
+                title: 'AZÚCAR',
+                description: 'Azúcar premium seleccionado para distribución nacional e internacional'
             },
             soja: {
                 title: 'SOJA',
@@ -150,8 +150,8 @@ const translations = {
         },
         hero: {
             cafe: {
-                title: 'COFFEE',
-                description: 'Selected premium quality coffees for national and international distribution'
+                title: 'SUGAR',
+                description: 'Premium selected sugar for national and international distribution'
             },
             soja: {
                 title: 'SOYBEAN',
