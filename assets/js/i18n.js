@@ -10,8 +10,8 @@ const translations = {
         },
         hero: {
             cafe: {
-                title: 'AÇÚCAR',
-                description: 'Açúcar premium selecionado para distribuição nacional e internacional'
+                title: 'CAFÉ',
+                description: 'Cafés selecionados de qualidade superior para distribuição nacional e internacional'
             },
             soja: {
                 title: 'SOJA',
@@ -24,6 +24,10 @@ const translations = {
             milho: {
                 title: 'MILHO',
                 description: 'MILHO E FARELO DE MILHO'
+            },
+            acucar: {
+                title: 'AÇÚCAR',
+                description: 'Açúcar premium selecionado para distribuição nacional e internacional'
             },
             verCategorias: 'Ver Categorias'
         },
@@ -80,8 +84,8 @@ const translations = {
         },
         hero: {
             cafe: {
-                title: 'AZÚCAR',
-                description: 'Azúcar premium seleccionado para distribución nacional e internacional'
+                title: 'CAFÉ',
+                description: 'Cafés seleccionados de calidad superior para distribución nacional e internacional'
             },
             soja: {
                 title: 'SOJA',
@@ -94,6 +98,10 @@ const translations = {
             milho: {
                 title: 'MAÍZ',
                 description: 'MAÍZ Y HARINA DE MAÍZ'
+            },
+            acucar: {
+                title: 'AZÚCAR',
+                description: 'Azúcar premium seleccionado para distribución nacional e internacional'
             },
             verCategorias: 'Ver Categorías'
         },
@@ -150,8 +158,8 @@ const translations = {
         },
         hero: {
             cafe: {
-                title: 'SUGAR',
-                description: 'Premium selected sugar for national and international distribution'
+                title: 'COFFEE',
+                description: 'Selected premium quality coffees for national and international distribution'
             },
             soja: {
                 title: 'SOYBEAN',
@@ -164,6 +172,10 @@ const translations = {
             milho: {
                 title: 'CORN',
                 description: 'CORN AND CORN MEAL'
+            },
+            acucar: {
+                title: 'SUGAR',
+                description: 'Premium selected sugar for national and international distribution'
             },
             verCategorias: 'View Categories'
         },
@@ -290,18 +302,20 @@ function updateDynamicContent() {
     const heroTitles = document.querySelectorAll('.hero-slide-title');
     const heroDescriptions = document.querySelectorAll('.hero-slide p');
     
-    if (heroTitles.length >= 4) {
+    if (heroTitles.length >= 5) {
         heroTitles[0].textContent = t('hero.cafe.title');
         heroTitles[1].textContent = t('hero.soja.title');
         heroTitles[2].textContent = t('hero.comercio.title');
         heroTitles[3].textContent = t('hero.milho.title');
+        heroTitles[4].textContent = t('hero.acucar.title');
     }
     
-    if (heroDescriptions.length >= 4) {
+    if (heroDescriptions.length >= 5) {
         heroDescriptions[0].textContent = t('hero.cafe.description');
         heroDescriptions[1].textContent = t('hero.soja.description');
         heroDescriptions[2].textContent = t('hero.comercio.description');
         heroDescriptions[3].textContent = t('hero.milho.description');
+        heroDescriptions[4].textContent = t('hero.acucar.description');
     }
     
     // Botões "Ver Categorias" no hero
