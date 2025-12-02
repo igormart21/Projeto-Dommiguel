@@ -73,6 +73,12 @@ const translations = {
         breadcrumb: {
             home: 'Home',
             produtos: 'Produtos'
+        },
+        footer: {
+            description: 'Excelência em distribuição para todo o Brasil. Portfólio completo de produtos alimentícios e embalagens no atacado.',
+            quickLinks: 'Links Rápidos',
+            contact: 'Contato',
+            copyright: '© 2024 Dom Miguel Atacadista. Todos os direitos reservados.'
         }
     },
     es: {
@@ -147,6 +153,12 @@ const translations = {
         breadcrumb: {
             home: 'Inicio',
             produtos: 'Productos'
+        },
+        footer: {
+            description: 'Excelencia en distribución para todo Brasil. Portafolio completo de productos alimenticios y embalajes al por mayor.',
+            quickLinks: 'Enlaces Rápidos',
+            contact: 'Contacto',
+            copyright: '© 2024 Dom Miguel Mayorista. Todos los derechos reservados.'
         }
     },
     en: {
@@ -221,6 +233,12 @@ const translations = {
         breadcrumb: {
             home: 'Home',
             produtos: 'Products'
+        },
+        footer: {
+            description: 'Excellence in distribution throughout Brazil. Complete portfolio of food products and wholesale packaging.',
+            quickLinks: 'Quick Links',
+            contact: 'Contact',
+            copyright: '© 2024 Dom Miguel Wholesaler. All rights reserved.'
         }
     }
 };
@@ -232,7 +250,7 @@ let currentLang = localStorage.getItem('language') || 'pt';
 function t(key) {
     const keys = key.split('.');
     let value = translations[currentLang];
-    
+
     for (const k of keys) {
         if (value && value[k]) {
             value = value[k];
@@ -245,7 +263,7 @@ function t(key) {
             break;
         }
     }
-    
+
     return value || key;
 }
 
@@ -256,10 +274,10 @@ function setLanguage(lang) {
         console.error('Idioma inválido:', lang);
         return;
     }
-    
+
     currentLang = lang;
     localStorage.setItem('language', lang);
-    
+
     // Atualizar flag no botão
     const flags = {
         pt: '🇧🇷',
@@ -271,7 +289,7 @@ function setLanguage(lang) {
         currentFlag.textContent = flags[lang] || '🇧🇷';
         console.log('Flag atualizada para:', flags[lang]); // Debug
     }
-    
+
     // Atualizar todos os elementos com data-i18n
     document.querySelectorAll('[data-i18n]').forEach(element => {
         const key = element.getAttribute('data-i18n');
@@ -289,10 +307,10 @@ function setLanguage(lang) {
             }
         }
     });
-    
+
     // Atualizar conteúdo dinâmico específico
     updateDynamicContent();
-    
+
     console.log('Idioma alterado com sucesso para:', lang); // Debug
 }
 
@@ -301,7 +319,7 @@ function updateDynamicContent() {
     // Hero slides
     const heroTitles = document.querySelectorAll('.hero-slide-title');
     const heroDescriptions = document.querySelectorAll('.hero-slide p');
-    
+
     if (heroTitles.length >= 5) {
         heroTitles[0].textContent = t('hero.cafe.title');
         heroTitles[1].textContent = t('hero.soja.title');
@@ -309,7 +327,7 @@ function updateDynamicContent() {
         heroTitles[3].textContent = t('hero.milho.title');
         heroTitles[4].textContent = t('hero.acucar.title');
     }
-    
+
     if (heroDescriptions.length >= 5) {
         heroDescriptions[0].textContent = t('hero.cafe.description');
         heroDescriptions[1].textContent = t('hero.soja.description');
@@ -317,12 +335,12 @@ function updateDynamicContent() {
         heroDescriptions[3].textContent = t('hero.milho.description');
         heroDescriptions[4].textContent = t('hero.acucar.description');
     }
-    
+
     // Botões "Ver Categorias" no hero
     document.querySelectorAll('a.btn-accent[href="#categorias"]').forEach(btn => {
         btn.innerHTML = `${t('hero.verCategorias')} <i class="fas fa-arrow-down ml-2"></i>`;
     });
-    
+
     // Botões "Solicitar Cotação" (EXCLUIR o botão flutuante)
     document.querySelectorAll('a[href*="wa.me"]').forEach(btn => {
         // PROTEGER o botão flutuante - nunca modificar
@@ -344,14 +362,14 @@ function updateDynamicContent() {
             }
             return; // Pular o botão flutuante
         }
-        
+
         // Atualizar apenas botões que NÃO são flutuantes
         const icon = btn.querySelector('i.fab.fa-whatsapp');
         if (icon) {
             btn.innerHTML = `<i class="fab fa-whatsapp mr-2"></i> ${t('product.solicitarCotacao')}`;
         }
     });
-    
+
     // Botões "Ver Mais Produtos"
     document.querySelectorAll('#ver-mais-produtos-btn').forEach(btn => {
         btn.innerHTML = `<i class="fab fa-whatsapp mr-2"></i> ${t('product.verMaisProdutos')}`;
