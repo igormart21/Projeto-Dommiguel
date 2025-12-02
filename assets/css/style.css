@@ -479,7 +479,9 @@ header.scrolled {
 
 .slider-dot.active {
     background: var(--accent);
-    border-color: var(--accent);
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;    border-color: var(--accent);
     width: 32px;
     border-radius: 6px;
 }

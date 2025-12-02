@@ -3,19 +3,19 @@ async function loadComponent(componentPath) {
     try {
         // Try to load with absolute path if relative fails
         let response = await fetch(componentPath);
-        
+
         // If 404, try with absolute path from root
         if (!response.ok && !componentPath.startsWith('/') && !componentPath.startsWith('http')) {
-            const absolutePath = componentPath.startsWith('../') 
-                ? componentPath.substring(3) 
+            const absolutePath = componentPath.startsWith('../')
+                ? componentPath.substring(3)
                 : componentPath;
             response = await fetch('/' + absolutePath);
         }
-        
+
         if (!response.ok) {
             throw new Error(`Failed to load ${componentPath}: ${response.status}`);
         }
-        
+
         const html = await response.text();
         return html;
     } catch (error) {
@@ -28,7 +28,7 @@ async function loadComponent(componentPath) {
 // Fix relative paths in loaded HTML
 function fixPaths(html, isInPages) {
     if (!isInPages) return html;
-    
+
     // Fix href paths - add ../ to paths that don't start with ../
     let fixed = html
         .replace(/href="index\.html"/g, 'href="../index.html"')
@@ -39,10 +39,10 @@ function fixPaths(html, isInPages) {
             }
             return match;
         });
-    
+
     // Fix image src paths - add ../ to asset paths
     fixed = fixed.replace(/src="assets\//g, 'src="../assets/');
-    
+
     return fixed;
 }
 
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Determine base path based on current page location
     const isInPages = window.location.pathname.includes('/pages/');
     const basePath = isInPages ? '../' : '';
-    
+
     // Load Header
     const headerPlaceholder = document.getElementById('header-placeholder');
     if (headerPlaceholder) {
@@ -59,16 +59,22 @@ document.addEventListener('DOMContentLoaded', async () => {
         const fixedHeaderHTML = fixPaths(headerHTML, isInPages);
         headerPlaceholder.innerHTML = fixedHeaderHTML;
         initHeader();
-        
+
         // Inicializar sistema de idiomas após header carregar
-        // setTimeout(() => {
-    //     if (typeof initWhatsAppButton === 'function') {
-    //         const existingButton = document.querySelector('.whatsapp-float');
-    //         if (!existingButton) {
-    //             initWhatsAppButton();
-    //         }
-    //     }
-    // }, 300);
+        initLanguageSystem();
+    } else {
+        // Fallback: se o header já existir no DOM (hardcoded), inicializar funcionalidades
+        setTimeout(() => {
+            const header = document.getElementById('header');
+            if (header) {
+                console.log('Initializing header and language system (static header)');
+                initHeader();
+                initLanguageSystem();
+            } else {
+                console.error('Header not found in DOM');
+            }
+        }, 100);
+    }
 });
 
 // Header functionality
@@ -76,7 +82,7 @@ function initHeader() {
     // Mobile Menu Toggle
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
-    
+
     if (mobileMenuBtn && mobileMenu) {
         mobileMenuBtn.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
@@ -86,7 +92,7 @@ function initHeader() {
                 icon.classList.toggle('fa-times');
             }
         });
-        
+
         // Close menu when clicking on a link
         const mobileLinks = mobileMenu.querySelectorAll('a');
         mobileLinks.forEach(link => {
@@ -100,10 +106,10 @@ function initHeader() {
             });
         });
     }
-    
+
     // Language Dropdown Toggle
     initLanguageDropdown();
-    
+
     // Header Scroll Effect
     const header = document.getElementById('header');
     if (header) {
@@ -115,7 +121,7 @@ function initHeader() {
             }
         });
     }
-    
+
     // Active link highlighting
     const currentPath = window.location.pathname;
     const navLinks = document.querySelectorAll('.nav-link');
@@ -132,39 +138,42 @@ function initHeader() {
 function initLanguageDropdown() {
     const languageBtn = document.getElementById('language-btn');
     const languageDropdown = document.getElementById('language-dropdown');
-    
+
     if (languageBtn && languageDropdown) {
-        // Remover event listeners anteriores se existirem
-        const newBtn = languageBtn.cloneNode(true);
-        languageBtn.parentNode.replaceChild(newBtn, languageBtn);
-        
-        // Atualizar referência
-        const updatedBtn = document.getElementById('language-btn');
-        const updatedDropdown = document.getElementById('language-dropdown');
-        
-        updatedBtn.addEventListener('click', (e) => {
+        // Verificar se já foi inicializado
+        if (languageBtn.dataset.initialized === 'true') {
+            console.log('Language dropdown already initialized');
+            return;
+        }
+
+        // Marcar como inicializado
+        languageBtn.dataset.initialized = 'true';
+
+        languageBtn.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
             console.log('Botão de idioma clicado!'); // Debug
-            const isVisible = updatedDropdown.classList.contains('visible');
+            const isVisible = languageDropdown.classList.contains('visible');
             console.log('Dropdown visível?', isVisible); // Debug
             if (isVisible) {
-                updatedDropdown.classList.remove('opacity-100', 'visible');
-                updatedDropdown.classList.add('opacity-0', 'invisible');
+                languageDropdown.classList.remove('opacity-100', 'visible');
+                languageDropdown.classList.add('opacity-0', 'invisible');
             } else {
-                updatedDropdown.classList.remove('opacity-0', 'invisible');
-                updatedDropdown.classList.add('opacity-100', 'visible');
+                languageDropdown.classList.remove('opacity-0', 'invisible');
+                languageDropdown.classList.add('opacity-100', 'visible');
                 console.log('Dropdown aberto!'); // Debug
             }
         });
-        
+
         // Close dropdown when clicking outside
         document.addEventListener('click', (e) => {
             if (!e.target.closest('#language-selector') && !e.target.closest('#language-dropdown')) {
-                updatedDropdown.classList.add('opacity-0', 'invisible');
-                updatedDropdown.classList.remove('opacity-100', 'visible');
+                languageDropdown.classList.add('opacity-0', 'invisible');
+                languageDropdown.classList.remove('opacity-100', 'visible');
             }
         });
+
+        console.log('Language dropdown initialized successfully');
     } else {
         console.error('language-btn ou language-dropdown não encontrados!', { languageBtn, languageDropdown });
     }
@@ -176,41 +185,41 @@ function initLanguageSystem() {
         const savedLang = localStorage.getItem('language') || 'pt';
         console.log('Inicializando sistema de idiomas. Idioma salvo:', savedLang);
         setLanguage(savedLang);
-        
+
         // Adicionar event listeners diretamente nos botões
         const languageOptions = document.querySelectorAll('.language-option, .language-option-mobile');
         console.log('Botões de idioma encontrados:', languageOptions.length);
-        
+
         if (languageOptions.length === 0) {
             console.warn('Nenhum botão de idioma encontrado! Tentando novamente em 500ms...');
             setTimeout(() => initLanguageSystem(), 500);
             return;
         }
-        
+
         languageOptions.forEach((btn, index) => {
             const lang = btn.getAttribute('data-lang');
             console.log(`Configurando botão ${index}: ${lang}`);
-            
+
             // Verificar se já tem listener (usando data attribute)
             if (btn.dataset.listenerAdded === 'true') {
                 console.log(`Botão ${index} já tem listener, pulando...`);
                 return;
             }
-            
+
             // Marcar como tendo listener
             btn.dataset.listenerAdded = 'true';
-            
+
             // Adicionar listener
-            btn.addEventListener('click', function(e) {
+            btn.addEventListener('click', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
                 const selectedLang = this.getAttribute('data-lang');
                 console.log('🎯 CLIQUE NO BOTÃO DE IDIOMA! Idioma selecionado:', selectedLang);
-                
+
                 if (selectedLang && typeof setLanguage === 'function') {
                     console.log('✅ Chamando setLanguage com:', selectedLang);
                     setLanguage(selectedLang);
-                    
+
                     // Fechar dropdown após seleção
                     const languageDropdown = document.getElementById('language-dropdown');
                     if (languageDropdown) {
@@ -219,16 +228,16 @@ function initLanguageSystem() {
                         console.log('Dropdown fechado');
                     }
                 } else {
-                    console.error('❌ Erro: Idioma inválido ou setLanguage não definido', { 
-                        selectedLang, 
-                        setLanguageExists: typeof setLanguage 
+                    console.error('❌ Erro: Idioma inválido ou setLanguage não definido', {
+                        selectedLang,
+                        setLanguageExists: typeof setLanguage
                     });
                 }
             });
-            
+
             console.log(`✅ Listener adicionado ao botão ${index} (${lang})`);
         });
-        
+
         console.log('✅ Sistema de idiomas inicializado com sucesso!');
     } else {
         console.error('❌ ERRO: setLanguage não está definido! Verifique se i18n.js foi carregado antes de components.js');
